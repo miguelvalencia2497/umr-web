@@ -1,4 +1,4 @@
-/** App Color Pallet */
+/** App Color Palette */
 export const colors = {
   primary: {
     700: "#003B46",
@@ -14,8 +14,8 @@ export const colors = {
     300: "#FFECEC",
   },
   white: {
-    500: "F0F0F0",
-    400: "FDFDFD",
-    300: "FFFFFF",
+    500: "#F0F0F0",
+    400: "#FDFDFD",
+    300: "#FFFFFF",
   },
 };
