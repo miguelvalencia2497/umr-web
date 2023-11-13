@@ -15,10 +15,14 @@
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "accept-language": "^3.0.18",
     "framer-motion": "^10.16.4",
+    "i18next": "^23.7.6",
+    "i18next-resources-to-backend": "^1.2.0",
     "next": "14.0.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-i18next": "^13.4.1"
   },
   "devDependencies": {
     "@types/node": "^20",
