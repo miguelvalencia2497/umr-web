@@ -2,8 +2,7 @@
 
 import { useEffect } from "react";
 import { useTranslation } from "../i18n/client";
-import { LanguageSwitcher } from "./components/common/LanguageSwitcher";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Home({ params: { lng } }: { params: { lng: string } }) {
   const { t } = useTranslation(lng);
