@@ -1,14 +1,15 @@
 import Link from "next/link";
+import { TFunction } from "i18next";
 import { Trans } from "react-i18next/TransWithoutContext";
-import { languages } from "../../../i18n/settings";
-import { useTranslation } from "../../../i18n";
+import { languages } from "../../../../i18n/settings";
+import { useTranslation } from "../../../../i18n";
 
-type Props = { lng: string };
+type Props = { t: TFunction; lng: string };
 
-export const LanguageSwitcher: React.FunctionComponent<Props> = async ({
+export const LanguageSwitcherBase: React.FunctionComponent<Props> = async ({
+  t,
   lng,
 }) => {
-  const { t } = await useTranslation(lng, "languageSwitcher");
   return (
     <div>
       <Trans i18nKey="languageSwitcher" t={t}>

@@ -1,3 +1,9 @@
 {
-    "hello": "kamusta"
+    "universal_health_records": "Universal Health Records",
+    "email_address": "email address",
+    "password": "password",
+    "show_password": "ipakita ang password",
+    "login": "log in",
+    "create_account": "gumawa ng account",
+    "forgot_password": "nalimutan ang password?"
 }
