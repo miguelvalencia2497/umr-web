@@ -2,7 +2,7 @@
 import { Box, HStack } from "@chakra-ui/react";
 import { useTranslation } from "@/app/i18n/client";
 import LoginForm from "./form";
-import useScreen from "../hooks/useScreen";
+import useScreen from "../../hooks/useScreen";
 
 type LoginProps = {
   params: { lng: string };
@@ -24,7 +24,7 @@ const Login: React.FC<LoginProps> = ({ params: { lng } }) => {
               h="full"
               borderRadius="14px"
               backgroundColor="white.700"
-              boxShadow=" 0px 0px 12px 0px rgba(0, 0, 0, 0.12);"
+              boxShadow="0px 0px 12px 0px rgba(0, 0, 0, 0.12);"
             ></Box>
           </Box>
         )}
