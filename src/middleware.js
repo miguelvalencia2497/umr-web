@@ -10,13 +10,23 @@ export const config = {
 }
 
 export function middleware(req) {
+
+ //?? Ignore redirect of publicly served files
+ if (
+    [
+      '/manifest.json',
+      '/favicon.ico',
+      '/logo-uhr.svg'
+    ].includes(req.nextUrl.pathname)
+  ) return
+
   if (req.nextUrl.pathname.indexOf('icon') > -1 || req.nextUrl.pathname.indexOf('chrome') > -1) return NextResponse.next()
   let lng
   if (req.cookies.has(cookieName)) lng = acceptLanguage.get(req.cookies.get(cookieName).value)
   if (!lng) lng = acceptLanguage.get(req.headers.get('Accept-Language'))
   if (!lng) lng = fallbackLng
 
-  // Redirect if lng in path is not supported
+    // Redirect if lng in path is not supported
   if (
     !languages.some(loc => req.nextUrl.pathname.startsWith(`/${loc}`)) &&
     !req.nextUrl.pathname.startsWith('/_next')

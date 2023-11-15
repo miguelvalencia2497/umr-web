@@ -2,7 +2,7 @@ import { dir } from "i18next";
 import { Inter } from "next/font/google";
 import { languages } from "../i18n/settings";
 import type { Metadata } from "next";
-import ChakraUiProvider from "@/provider/chakra-ui.provider";
+import ChakraUiProvider from "@/app/contexts/ChakraContext";
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));

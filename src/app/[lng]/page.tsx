@@ -1,17 +1,19 @@
-import { useTranslation } from "../i18n";
-import { LanguageSwitcher } from "./components/common/LanguageSwitcher";
+"use client";
 
-export default async function Home({
-  params: { lng },
-}: {
-  params: { lng: string };
-}) {
-  console.log("🚀 ~ file: page.tsx:9 ~ lng:", lng);
-  const { t } = await useTranslation(lng);
+import { useEffect } from "react";
+import { useTranslation } from "../i18n/client";
+import { useRouter } from "next/navigation";
+
+export default function Home({ params: { lng } }: { params: { lng: string } }) {
+  const { t } = useTranslation(lng);
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/login");
+  });
   return (
     <main>
-      <>{t("hello")}</>
-      <LanguageSwitcher lng={lng} />
+      {/* <>{t("hello")}</> */}
+      {/* <LanguageSwitcher lng={lng} /> */}
     </main>
   );
 }
