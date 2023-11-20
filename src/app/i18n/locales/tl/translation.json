@@ -1,9 +1,11 @@
 {
     "universal_health_records": "Universal Health Records",
+    "welcome_back": "maligayang pagbabalik",
     "email_address": "email address",
     "password": "password",
     "show_password": "ipakita ang password",
     "login": "log in",
     "create_account": "gumawa ng account",
-    "forgot_password": "nalimutan ang password?"
+    "forgot_password": "nalimutan ang password?",
+    "dynamic_space": "Isang dynamic na space na nakatuon sa iyong paglalakbay sa kalusugan."
 }

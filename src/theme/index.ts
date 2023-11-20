@@ -27,6 +27,12 @@ export const theme = extendTheme({
           color: "white.300",
           _hover: {
             backgroundColor: "primary.700",
+            _disabled: {
+              backgroundColor: "primary.700",
+            },
+          },
+          _focus: {
+            backgroundColor: "primary.700",
           },
         },
         outline: {

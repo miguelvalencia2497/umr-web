@@ -1,4 +1,4 @@
-import { useTranslation } from "../../../../i18n";
+import { useTranslation } from "../../../i18n";
 import { LanguageSwitcherBase } from "./LanguageSwitcherBase";
 
 export const LanguageSwitcher: React.FC<{ lng: string }> = async ({ lng }) => {

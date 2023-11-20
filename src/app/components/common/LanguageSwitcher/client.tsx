@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslation } from "../../../../i18n/client";
+import { useTranslation } from "../../../i18n/client";
 import { LanguageSwitcherBase } from "./LanguageSwitcherBase";
 
 export const LanguageSwitcher: React.FC<{ lng: string }> = ({ lng }) => {

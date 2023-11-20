@@ -1,32 +1,71 @@
 "use client";
-import { Box, HStack } from "@chakra-ui/react";
-import { useTranslation } from "@/app/i18n/client";
+import { Box, Flex, HStack, Text, VStack } from "@chakra-ui/react";
+import bg from "../../../../public/bg-login.png";
 import LoginForm from "./form";
 import useScreen from "../../hooks/useScreen";
+import Image from "next/image";
+import { useTranslation } from "@/app/i18n/client";
+import { Trans } from "react-i18next";
 
 type LoginProps = {
   params: { lng: string };
 };
 
 const Login: React.FC<LoginProps> = ({ params: { lng } }) => {
-  const { t } = useTranslation(lng);
   const { isMobile } = useScreen();
+  const { t } = useTranslation(lng);
   return (
     <>
       <HStack>
-        <Box w={["100%", "50%"]} h="100vh" px={["5", "10", "10", "40"]}>
+        <Box w={["100%", "40%"]} h="100vh">
           <LoginForm lng={lng} />
         </Box>
         {!isMobile && (
-          <Box w="50%" h="100vh" py="20px" px="32px">
-            <Box
-              w="full"
+          <Flex
+            w="60%"
+            h="100vh"
+            align="center"
+            justify="center"
+            style={{
+              backgroundImage: `url(${bg.src})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPositionX: "left",
+            }}
+          >
+            <VStack
+              w="400px"
               h="full"
-              borderRadius="14px"
-              backgroundColor="primary.700"
-              boxShadow="0px 0px 12px 0px rgba(0, 0, 0, 0.12);"
-            ></Box>
-          </Box>
+              align="flex-start"
+              justify="center"
+              textAlign="left"
+            >
+              <Box ml="10px">
+                <Image
+                  src="/logo-uhr.svg"
+                  alt="uhr logo"
+                  width={100}
+                  height={100}
+                />
+              </Box>
+              <Text
+                fontFamily="montserrat"
+                fontSize="24px"
+                fontWeight="600"
+                color="primary.700"
+              >
+                {t("universal_health_records")}
+              </Text>
+              <Text fontSize="16px" fontWeight="600" color="primary.700">
+                <Trans
+                  i18nKey="dynamic_space"
+                  components={{
+                    highlight: <Text as="span" color="primary.600" />,
+                  }}
+                />
+              </Text>
+            </VStack>
+          </Flex>
         )}
       </HStack>
     </>

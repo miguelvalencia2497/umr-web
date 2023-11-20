@@ -1,9 +1,11 @@
 {
     "universal_health_records": "Universal Health Records",
+    "welcome_back": "welcome back",
     "email_address": "email address",
     "password": "password",
     "show_password": "show password",
     "login": "log in",
     "create_account": "create account",
-    "forgot_password": "forgot password?"
+    "forgot_password": "forgot password?",
+    "dynamic_space": "A <highlight>dynamic</highlight> space dedicated to your <highlight>health journey</highlight>."
 }
