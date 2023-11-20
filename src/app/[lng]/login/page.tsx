@@ -23,7 +23,7 @@ const Login: React.FC<LoginProps> = ({ params: { lng } }) => {
               w="full"
               h="full"
               borderRadius="14px"
-              backgroundColor="white.700"
+              backgroundColor="primary.700"
               boxShadow="0px 0px 12px 0px rgba(0, 0, 0, 0.12);"
             ></Box>
           </Box>
