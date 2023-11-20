@@ -16,7 +16,10 @@ export function middleware(req) {
     [
       '/manifest.json',
       '/favicon.ico',
-      '/logo-uhr.svg'
+      '/logo-uhr.svg',
+      '/bg-login.png',
+      '/logo-nav.png',
+      '/nav-tail.png'
     ].includes(req.nextUrl.pathname)
   ) return
 
