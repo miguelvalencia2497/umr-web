@@ -7,7 +7,7 @@ type TextFieldProps<T> = IFieldWrapperProps & {
   placeholder?: string;
 };
 
-const TextField: React.FC<TextFieldProps<T>> = ({
+const TextField: React.FC<TextFieldProps<unknown>> = ({
   type,
   placeholder,
   ...props
