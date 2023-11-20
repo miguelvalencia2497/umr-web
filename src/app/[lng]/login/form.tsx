@@ -16,6 +16,8 @@ import { useState } from "react";
 import FormikWrapper from "../../components/form/FormikWrapper";
 import { object as YupObject, string as YupString } from "yup";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import useScreen from "@/app/hooks/useScreen";
 
 export type ILoginForm = {
   email: string;
@@ -26,6 +28,7 @@ const LoginForm: React.FC<{ lng: string }> = ({ lng }) => {
   const { t } = useTranslation(lng);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const router = useRouter();
+  const { isMobile } = useScreen();
 
   const schema = YupObject().shape({
     email: YupString(),
@@ -51,7 +54,7 @@ const LoginForm: React.FC<{ lng: string }> = ({ lng }) => {
   return (
     <VStack h="full" align={["center", "flex-end"]} justify="center">
       <VStack
-        w="80%"
+        w={["90%", "80%"]}
         px="10"
         py="20"
         align="center"
@@ -61,6 +64,9 @@ const LoginForm: React.FC<{ lng: string }> = ({ lng }) => {
         backgroundColor="white.400"
         boxShadow="0px 2px 8px 0px rgba(0, 0, 0, 0.08)"
       >
+        {isMobile && (
+          <Image src="/logo-uhr.svg" alt="uhr logo" width={100} height={100} />
+        )}
         <Text
           fontFamily={"montserrat"}
           color="primary.700"
