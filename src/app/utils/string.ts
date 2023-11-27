@@ -23,3 +23,15 @@ export const titleize = (s: string): string => {
       .join(" ")
   );
 };
+
+export function sentenceize(s) {
+  if (!s) {
+    return "";
+  }
+
+  return capitalize(s.replace(/_/g, " "));
+}
+
+export function fullName({ first_name = "", last_name = "" }) {
+  return `${first_name} ${last_name}`.trim();
+}
