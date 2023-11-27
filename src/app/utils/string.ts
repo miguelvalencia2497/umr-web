@@ -24,7 +24,7 @@ export const titleize = (s: string): string => {
   );
 };
 
-export function sentenceize(s) {
+export function sentenceize(s: string) {
   if (!s) {
     return "";
   }
