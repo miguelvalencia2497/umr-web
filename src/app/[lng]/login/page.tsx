@@ -12,15 +12,15 @@ type LoginProps = {
 };
 
 const Login: React.FC<LoginProps> = ({ params: { lng } }) => {
-  const { isMobile } = useScreen();
+  const { isMobile, isTablet } = useScreen();
   const { t } = useTranslation(lng);
   return (
     <>
       <HStack>
-        <Box w={["100%", "40%"]} h="100vh">
+        <Box w={{ base: "100%", md: "100%", lg: "40%" }} h="100vh">
           <LoginForm lng={lng} />
         </Box>
-        {!isMobile && (
+        {!isMobile && !isTablet && (
           <Flex
             w="60%"
             h="100vh"

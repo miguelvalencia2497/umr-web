@@ -28,7 +28,7 @@ const LoginForm: React.FC<{ lng: string }> = ({ lng }) => {
   const { t } = useTranslation(lng);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const router = useRouter();
-  const { isMobile } = useScreen();
+  const { isMobile, isTablet, isLargeTablet } = useScreen();
 
   const schema = YupObject().shape({
     email: YupString(),
@@ -52,9 +52,13 @@ const LoginForm: React.FC<{ lng: string }> = ({ lng }) => {
   };
 
   return (
-    <VStack h="full" align={["center", "flex-end"]} justify="center">
+    <VStack
+      h="full"
+      align={{ base: "center", md: "center", lg: "flex-end" }}
+      justify="center"
+    >
       <VStack
-        w={["90%", "80%"]}
+        w={{ base: "90%", md: "90%", lg: "80%" }}
         px="10"
         py="20"
         align="center"
@@ -64,7 +68,7 @@ const LoginForm: React.FC<{ lng: string }> = ({ lng }) => {
         backgroundColor="white.400"
         boxShadow="0px 2px 8px 0px rgba(0, 0, 0, 0.08)"
       >
-        {isMobile && (
+        {(isMobile || isTablet || isLargeTablet) && (
           <Image src="/logo-uhr.svg" alt="uhr logo" width={100} height={100} />
         )}
         <Text
