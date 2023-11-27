@@ -6,18 +6,19 @@ import {
   Box,
   Flex,
   HStack,
-  IconButton,
   useDisclosure,
   Stack,
-  VStack,
   Text,
   BoxProps,
+  Icon,
+  VStack,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import navTail from "../../../../../public/nav-tail.png";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { MdClose, MdMenu } from "react-icons/md";
+import { MdClose } from "react-icons/md";
+import { HiMenuAlt1 } from "react-icons/hi";
 
 interface Props {
   onClick: () => void;
@@ -87,24 +88,31 @@ const Navbar: React.FC<NavProps> = ({ lng }) => {
 
   return (
     <>
-      <Box px="32px">
-        <Flex w="full" h={16} alignItems={"center"}>
-          {/* <IconButton
+      <Box px={{ base: "none", lg: "32px" }}>
+        <Flex
+          w="full"
+          h={{ base: "44px", lg: 16 }}
+          alignItems={"center"}
+          borderBottom={{ base: "1px solid #E7E7E7", lg: "none" }}
+        >
+          <Icon
+            color="black"
             size={"md"}
-            icon={isOpen ? <MdClose /> : <MdMenu />}
+            as={isOpen ? MdClose : HiMenuAlt1}
             aria-label={"Open Menu"}
-            display={{ md: "none" }}
+            display={{ lg: "none" }}
             onClick={isOpen ? onClose : onOpen}
-          /> */}
+            ml="16px"
+          />
           <HStack w="full" justify="space-between">
-            <Box flex="1">
+            <Box flex="1" display={{ base: "none", lg: "block" }}>
               <Image src="/logo-nav.png" alt="" width={170} height={54} />
             </Box>
             <HStack
               flex="1"
               as={"nav"}
               spacing="10"
-              display={{ base: "none", md: "flex" }}
+              display={{ base: "none", lg: "flex" }}
             >
               {Links.map((link) => (
                 <NavLink
@@ -120,7 +128,6 @@ const Navbar: React.FC<NavProps> = ({ lng }) => {
                     h="65px"
                     align="center"
                     justify="center"
-                    // border="1px solid black"
                     w="100px"
                     style={
                       activeMainNav === link
@@ -139,7 +146,6 @@ const Navbar: React.FC<NavProps> = ({ lng }) => {
                       color="primary.700"
                       fontSize="13px"
                       fontWeight={activeMainNav === link ? "700" : "400"}
-                      _hover={{ fontWeight: "700" }}
                     >
                       {capitalize(t(link))}
                     </Text>
@@ -155,7 +161,7 @@ const Navbar: React.FC<NavProps> = ({ lng }) => {
             w="full"
             as={"nav"}
             spacing="2"
-            display={{ base: "none", md: "flex" }}
+            display={{ base: "none", lg: "flex" }}
             align="center"
             justify="center"
             background="linear-gradient(270deg, rgba(192, 222, 229, 0.08) 0%, rgba(192, 222, 229, 0.50) 10.96%, rgba(192, 222, 229, 0.50) 87.63%, rgba(192, 222, 229, 0.05) 100%, rgba(192, 222, 229, 0.08) 100%);"
@@ -183,7 +189,6 @@ const Navbar: React.FC<NavProps> = ({ lng }) => {
                     color="primary.700"
                     fontSize="13px"
                     fontWeight={activeSubNav === link ? "700" : "400"}
-                    _hover={{ fontWeight: "700" }}
                   >
                     {capitalize(t(link))}{" "}
                   </Text>
@@ -193,15 +198,62 @@ const Navbar: React.FC<NavProps> = ({ lng }) => {
           </HStack>
         )}
 
-        {/* {isOpen ? (
-          <Box pb={4} display={{ md: "none" }}>
-            <Stack as={"nav"} spacing={4}>
+        {isOpen ? (
+          <Box pb={4} display={{ lg: "none" }}>
+            <Stack as={"nav"} spacing="2" mt={10}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <>
+                  <NavLink
+                    onClick={() => {
+                      activeMainNav === link
+                        ? setActiveMainNav("")
+                        : setActiveMainNav(link);
+                    }}
+                    key={link}
+                  >
+                    <Text
+                      pl="32px"
+                      textAlign="left"
+                      fontSize="16px"
+                      color="primary.700"
+                      fontWeight={activeMainNav === link ? "700" : "400"}
+                    >
+                      {capitalize(t(link))}
+                    </Text>
+                  </NavLink>
+                  {activeMainNav === link && (
+                    <VStack as={"nav"} background="primary.200" py="4">
+                      {subLinks[activeMainNav as keyof typeof subLinks]?.map(
+                        (link) => (
+                          <NavLink
+                            key={link}
+                            onClick={() => {
+                              setActiveSubNav(link);
+                            }}
+                            isActive={activeMainNav === link}
+                          >
+                            <Box pb="4" px="6" borderRadius="4px">
+                              <Text
+                                w="max-content"
+                                color="primary.700"
+                                fontSize="13px"
+                                fontWeight={
+                                  activeSubNav === link ? "700" : "400"
+                                }
+                              >
+                                {capitalize(t(link))}{" "}
+                              </Text>
+                            </Box>
+                          </NavLink>
+                        ),
+                      )}
+                    </VStack>
+                  )}
+                </>
               ))}
             </Stack>
           </Box>
-        ) : null} */}
+        ) : null}
       </Box>
     </>
   );
