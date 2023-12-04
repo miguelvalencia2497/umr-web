@@ -1,6 +1,7 @@
 /** App Color Palette */
 export const colors = {
   primary: {
+    900: "#76A7AD",
     800: "#5799A3",
     700: "#003B46",
     600: "#61A4AD",

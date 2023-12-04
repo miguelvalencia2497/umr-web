@@ -8,5 +8,21 @@
     "create_account": "create account",
     "forgot_password": "forgot password?",
     "dynamic_space": "A <highlight>dynamic</highlight> space dedicated to your <highlight>health journey</highlight>.",
-    "im_a_reminder": "i am a reminder!"
+    "im_a_reminder": "i am a reminder!",
+    "review_your_last_consultation": "review your last consultation",
+    "date_of_visit": "date of visit",
+    "attending_physician": "attending physician",
+    "diagnosis": "diagnosis",
+    "disposition": "disposition",
+    "view_full_consultation_details": "view full consultation details",
+    "generate_your_qr_code": "Generate your QR code",
+    "upcoming_follow_ups": "Upcoming Follow up/s",
+    "follow_up_date": "Follow up date",
+    "clinic_or_hospital_address": "Clinic/Hospital Address",
+    "hmo_and_dependents": "HMO and Dependents",
+    "payment_methods": "Payment Methods",
+    "review_current_medication_list": "Review current Medication list",
+    "prescribed_date": "Prescribed date",
+    "medication": "Medication",
+    "frequently_asked_questions": "Frequently asked Questions"
 }
