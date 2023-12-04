@@ -67,8 +67,20 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
         <HStack mt="24px" gap="3" alignItems="flex-start">
           <VStack w="full" gap="5">
             <DashboardCard
-              boxProps={{ background: "primary.900", color: "white.300" }}
-              isDismissable={true}
+              boxProps={{
+                background: "white.700",
+                border: "1px solid #D7E5E5",
+              }}
+              childrenWrapperProps={{
+                flexDirection: "column",
+                gap: "5",
+                alignItems: "flex-start",
+              }}
+              onButtonClick={() => {}}
+              buttonIcon={<MdAdd />}
+              //?? For enabling dismissable
+              // boxProps={{ background: "primary.900", color: "white.300" }}
+              // isDismissable={true}
             >
               <Stack spacing="4">
                 <Text fontSize="13px" fontWeight="700">
@@ -108,7 +120,7 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
                     Recovered
                   </Text>
                 </Box>
-                <Box mb="40px">
+                <Box>
                   <Link href="#">
                     <Text
                       fontSize="12px"
@@ -130,7 +142,7 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
                 <Text fontSize="13px" fontWeight="700">
                   {t("generate_your_qr_code")}
                 </Text>
-                <Text fontSize="12px" fontWeight="400">
+                <Text fontSize="12px" fontWeight="400" mb="5">
                   Use this QR code for Sed vehicula urna mattis faucibus eu erat
                   neque bibendum.
                 </Text>
