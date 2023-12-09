@@ -19,7 +19,15 @@ export function middleware(req) {
       '/logo-uhr.svg',
       '/bg-login.png',
       '/logo-nav.png',
-      '/nav-tail.png'
+      '/nav-tail.png',
+      '/card-consultation.png',
+      '/card-faq.png',
+      '/card-followup.png',
+      '/card-dependents.png',
+      '/card-medication.png',
+      '/card-payment.png',
+      '/card-privacy.png',
+      '/card-qr.png',
     ].includes(req.nextUrl.pathname)
   ) return
 

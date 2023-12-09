@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { languages } from "../i18n/settings";
 import type { Metadata } from "next";
 import ChakraUiProvider from "@/app/contexts/ChakraContext";
+import { background } from "@chakra-ui/react";
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -24,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang={lng} dir={dir(lng)}>
-      <body className={inter.className}>
+      <body style={{ background: "#FFF" }}>
         <ChakraUiProvider>{children}</ChakraUiProvider>
       </body>
     </html>

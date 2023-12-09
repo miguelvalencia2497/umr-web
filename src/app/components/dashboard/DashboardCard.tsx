@@ -3,16 +3,17 @@ import {
   BoxProps,
   Fade,
   Flex,
-  HStack,
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
 import { ReactElement } from "react";
 import { MdChevronRight, MdClose } from "react-icons/md";
+import Image from "next/image";
 
 type Props = {
   isDismissable?: boolean;
   boxProps?: BoxProps;
+  cardImage?: ReactElement;
   children?: string | React.ReactElement;
   childrenWrapperProps?: BoxProps;
   onButtonClick?: () => void;
@@ -22,6 +23,7 @@ type Props = {
 const DashboardCard: React.FC<Props> = ({
   isDismissable,
   boxProps,
+  cardImage,
   children,
   childrenWrapperProps,
   onButtonClick,
@@ -43,8 +45,12 @@ const DashboardCard: React.FC<Props> = ({
           flexDirection="row"
           gap="2"
           align="flex-end"
+          style={{
+            position: "relative",
+          }}
           {...childrenWrapperProps}
         >
+          {cardImage ? cardImage : <></>}
           {children}
           {!!onButtonClick && (
             <IconButton
