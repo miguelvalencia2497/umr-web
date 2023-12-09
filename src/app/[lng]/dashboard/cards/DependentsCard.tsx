@@ -20,6 +20,7 @@ const DependentsCard: React.FC<Props> = ({ lng, boxProps }) => {
         />
       }
       onButtonClick={() => {}}
+      childrenWrapperProps={{ justifyContent: "space-between" }}
       boxProps={{
         background: "#FAFFFF",
         border: "1px solid #D7E5E5",

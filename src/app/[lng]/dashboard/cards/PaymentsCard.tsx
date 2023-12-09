@@ -20,6 +20,7 @@ const PaymentsCard: React.FC<Props> = ({ lng, boxProps }) => {
         />
       }
       onButtonClick={() => {}}
+      childrenWrapperProps={{ justifyContent: "space-between" }}
       boxProps={{ ...boxProps }}
     >
       <Stack spacing="4">

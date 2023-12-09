@@ -21,6 +21,7 @@ const QRCard: React.FC<Props> = ({ lng, boxProps }) => {
       onButtonClick={() => {
         console.log("button clicked");
       }}
+      childrenWrapperProps={{ justifyContent: "space-between" }}
       boxProps={{ ...boxProps }}
     >
       <Stack spacing="4">
