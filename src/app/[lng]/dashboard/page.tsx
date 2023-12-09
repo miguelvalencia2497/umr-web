@@ -33,7 +33,7 @@ type DashboardProps = {
 };
 
 const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
-  const { isMobile, isTablet } = useScreen();
+  const { isMobile, isTablet, isDesktop } = useScreen();
   const { t } = useTranslation(lng);
   const user = {
     first_name: "Juan",
@@ -72,22 +72,121 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
             })}
           </Heading>
         </VStack>
-        <HStack mt="24px" gap="3" alignItems="flex-start" h="600px">
-          <VStack w="full" height="full" justify="center">
-            <ConsultationCard lng={lng} boxProps={{ flex: 8 }} />
-            <QRCard lng={lng} boxProps={{ flex: 2 }} />
-            <PrivacyCard lng={lng} boxProps={{ flex: 2 }} />
-          </VStack>
-          <VStack w="full" height="full" justify="center">
-            <FollowUpCard lng={lng} boxProps={{ flex: 8 }} />
-            <DependentsCard lng={lng} boxProps={{ flex: 2 }} />
-            <PaymentsCard lng={lng} boxProps={{ flex: 2 }} />
-          </VStack>
-          <VStack w="full" height="full" justify="center">
-            <MedicationCard lng={lng} boxProps={{ flex: 1 }} />
-            <FAQCard lng={lng} boxProps={{ flex: 1 }} />
-          </VStack>
-        </HStack>
+        {isDesktop ? (
+          <HStack mt="24px" gap="3" alignItems="flex-start" h="600px">
+            <VStack w="full" height="full" justify="center">
+              <ConsultationCard lng={lng} boxProps={{ flex: 8 }} />
+              <QRCard lng={lng} boxProps={{ flex: 2 }} />
+              <PrivacyCard lng={lng} boxProps={{ flex: 2 }} />
+            </VStack>
+            <VStack w="full" height="full" justify="center">
+              <FollowUpCard lng={lng} boxProps={{ flex: 8 }} />
+              <DependentsCard lng={lng} boxProps={{ flex: 2 }} />
+              <PaymentsCard lng={lng} boxProps={{ flex: 2 }} />
+            </VStack>
+            <VStack w="full" height="full" justify="center">
+              <MedicationCard lng={lng} boxProps={{ flex: 1 }} />
+              <FAQCard lng={lng} boxProps={{ flex: 1 }} />
+            </VStack>
+          </HStack>
+        ) : (
+          <>
+            <Box
+              w="100%"
+              h="320px"
+              mt="5"
+              style={{ whiteSpace: "nowrap" }}
+              overflowY="scroll"
+            >
+              <ConsultationCard
+                lng={lng}
+                boxProps={{
+                  display: "inline-block",
+                  width: "90%",
+                  height: "100%",
+                  whiteSpace: "normal",
+                  marginRight: "4",
+                }}
+              />
+              <FollowUpCard
+                lng={lng}
+                boxProps={{
+                  display: "inline-block",
+                  width: "90%",
+                  height: "100%",
+                  whiteSpace: "normal",
+                  marginRight: "4",
+                }}
+              />
+              <MedicationCard
+                lng={lng}
+                boxProps={{
+                  display: "inline-block",
+                  width: "90%",
+                  height: "100%",
+                  whiteSpace: "normal",
+                  marginRight: "4",
+                }}
+              />
+              <FAQCard
+                lng={lng}
+                boxProps={{
+                  display: "inline-block",
+                  width: "90%",
+                  height: "100%",
+                  whiteSpace: "normal",
+                }}
+              />
+            </Box>
+            <Box
+              w="100%"
+              h="140px"
+              mt="5"
+              style={{ whiteSpace: "nowrap" }}
+              overflowY="scroll"
+            >
+              <QRCard
+                lng={lng}
+                boxProps={{
+                  display: "inline-block",
+                  width: "90%",
+                  height: "100%",
+                  whiteSpace: "normal",
+                  marginRight: "4",
+                }}
+              />
+              <PrivacyCard
+                lng={lng}
+                boxProps={{
+                  display: "inline-block",
+                  width: "90%",
+                  height: "100%",
+                  whiteSpace: "normal",
+                  marginRight: "4",
+                }}
+              />
+              <DependentsCard
+                lng={lng}
+                boxProps={{
+                  display: "inline-block",
+                  width: "90%",
+                  height: "100%",
+                  whiteSpace: "normal",
+                  marginRight: "4",
+                }}
+              />
+              <PaymentsCard
+                lng={lng}
+                boxProps={{
+                  display: "inline-block",
+                  width: "90%",
+                  height: "100%",
+                  whiteSpace: "normal",
+                }}
+              />
+            </Box>
+          </>
+        )}
       </ContentWrapper>
     </>
   );
