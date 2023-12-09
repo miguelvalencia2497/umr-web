@@ -155,7 +155,7 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
                   marginRight: "4",
                 }}
               />
-              <PrivacyCard
+              <DependentsCard
                 lng={lng}
                 boxProps={{
                   display: "inline-block",
@@ -165,7 +165,7 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
                   marginRight: "4",
                 }}
               />
-              <DependentsCard
+              <PrivacyCard
                 lng={lng}
                 boxProps={{
                   display: "inline-block",
