@@ -4,20 +4,8 @@ import Navbar from "@/app/components/common/Navbar";
 import NoticePanel from "@/app/components/common/NoticePanel";
 import noticeBg from "../../../../public/notice-bg-hand.png";
 import useScreen from "@/app/hooks/useScreen";
-import { fullName, sentenceize, titleize } from "@/app/utils/string";
-import {
-  Box,
-  Divider,
-  HStack,
-  Heading,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-import DashboardCard from "@/app/components/dashboard/DashboardCard";
-import Link from "next/link";
-import { capitalize } from "lodash";
-import { MdAdd, MdChevronRight } from "react-icons/md";
+import { fullName, sentenceize } from "@/app/utils/string";
+import { Box, HStack, Heading, Text, VStack } from "@chakra-ui/react";
 import { useTranslation } from "@/app/i18n/client";
 import ConsultationCard from "./cards/ConsultationCard";
 import QRCard from "./cards/QRCard";
