@@ -1,12 +1,12 @@
 import DashboardCard from "@/app/components/dashboard/DashboardCard";
 import { useTranslation } from "@/app/i18n/client";
 import { titleize } from "@/app/utils/string";
-import { Stack, Text } from "@chakra-ui/react";
+import { BoxProps, Stack, Text } from "@chakra-ui/react";
 import Image from "next/image";
 
-type Props = { lng: string };
+type Props = { lng: string; boxProps?: BoxProps };
 
-const DependentsCard: React.FC<Props> = ({ lng }) => {
+const DependentsCard: React.FC<Props> = ({ lng, boxProps }) => {
   const { t } = useTranslation(lng);
   return (
     <DashboardCard
@@ -23,6 +23,7 @@ const DependentsCard: React.FC<Props> = ({ lng }) => {
       boxProps={{
         background: "#FAFFFF",
         border: "1px solid #D7E5E5",
+        ...boxProps,
       }}
     >
       <Stack spacing="4">

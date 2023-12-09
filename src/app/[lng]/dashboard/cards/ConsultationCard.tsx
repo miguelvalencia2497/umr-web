@@ -1,20 +1,21 @@
 import { useTranslation } from "@/app/i18n/client";
 import { capitalize } from "@/app/utils/string";
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Stack, Text } from "@chakra-ui/react";
 import { MdAdd } from "react-icons/md";
 import DashboardCard from "@/app/components/dashboard/DashboardCard";
 import Image from "next/image";
 import Link from "next/link";
 
-type Props = { lng: string };
+type Props = { lng: string; boxProps?: BoxProps };
 
-const ConsultationCard: React.FC<Props> = ({ lng }) => {
+const ConsultationCard: React.FC<Props> = ({ lng, boxProps }) => {
   const { t } = useTranslation(lng);
   return (
     <DashboardCard
       boxProps={{
         background: "#FAFFFF",
         border: "1px solid #D7E5E5",
+        ...boxProps,
       }}
       cardImage={
         <Image
@@ -28,6 +29,8 @@ const ConsultationCard: React.FC<Props> = ({ lng }) => {
       childrenWrapperProps={{
         flexDirection: "column",
         alignItems: "flex-start",
+        height: "100%",
+        justifyContent: "space-between",
       }}
       onButtonClick={() => {}}
       buttonIcon={<MdAdd />}

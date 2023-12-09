@@ -1,13 +1,13 @@
 import DashboardCard from "@/app/components/dashboard/DashboardCard";
 import { useTranslation } from "@/app/i18n/client";
 import { capitalize } from "@/app/utils/string";
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Stack, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { MdAdd } from "react-icons/md";
 
-type Props = { lng: string };
+type Props = { lng: string; boxProps?: BoxProps };
 
-const FollowUpCard: React.FC<Props> = ({ lng }) => {
+const FollowUpCard: React.FC<Props> = ({ lng, boxProps }) => {
   const { t } = useTranslation(lng);
   return (
     <DashboardCard
@@ -24,13 +24,16 @@ const FollowUpCard: React.FC<Props> = ({ lng }) => {
         flexDirection: "column",
         gap: "2",
         alignItems: "flex-start",
+        height: "100%",
+        justifyContent: "space-between",
       }}
       onButtonClick={() => {
         console.log("button clicked");
       }}
       buttonIcon={<MdAdd />}
+      boxProps={{ ...boxProps }}
     >
-      <Stack spacing="4" mb={6}>
+      <Stack spacing="4">
         <Text fontSize="13px" fontWeight="700" mb="2">
           {t("upcoming_follow_ups")}
         </Text>

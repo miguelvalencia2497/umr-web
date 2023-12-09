@@ -32,62 +32,62 @@ const DashboardCard: React.FC<Props> = ({
   const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true });
 
   return (
-    <Fade in={isOpen} style={{ width: "100%" }} unmountOnExit={true}>
-      <Box
-        w="full"
-        background="white.400"
-        borderRadius="8px"
-        border="1px solid #F0F0F0"
-        p="17"
-        {...boxProps}
+    // <Fade in={isOpen} style={{ width: "100%" }} unmountOnExit={true}>
+    <Box
+      w="full"
+      background="white.400"
+      borderRadius="8px"
+      border="1px solid #F0F0F0"
+      p="17"
+      {...boxProps}
+    >
+      <Flex
+        flexDirection="row"
+        gap="2"
+        align="flex-end"
+        style={{
+          position: "relative",
+        }}
+        {...childrenWrapperProps}
       >
-        <Flex
-          flexDirection="row"
-          gap="2"
-          align="flex-end"
-          style={{
-            position: "relative",
-          }}
-          {...childrenWrapperProps}
-        >
-          {cardImage ? cardImage : <></>}
-          {children}
-          {!!onButtonClick && (
-            <IconButton
-              isRound={true}
-              backgroundColor="transparent"
-              color={"primary.600"}
-              border="1px solid #61A4AD"
-              fontSize="20px"
-              aria-label="dismiss"
-              icon={buttonIcon ? buttonIcon : <MdChevronRight />}
-              onClick={(e) => {
-                e.preventDefault();
-                onButtonClick?.();
-              }}
-              alignSelf="flex-end"
-            />
-          )}
-        </Flex>
+        {cardImage ? cardImage : <></>}
+        {children}
+        {!!onButtonClick && (
+          <IconButton
+            isRound={true}
+            backgroundColor="transparent"
+            color={"primary.600"}
+            border="1px solid #61A4AD"
+            fontSize="20px"
+            aria-label="dismiss"
+            icon={buttonIcon ? buttonIcon : <MdChevronRight />}
+            onClick={(e) => {
+              e.preventDefault();
+              onButtonClick?.();
+            }}
+            alignSelf="flex-end"
+          />
+        )}
+      </Flex>
 
-        <Box w="full" display="flex" justifyContent="flex-end">
-          {isDismissable && (
-            <IconButton
-              isRound={true}
-              backgroundColor="white.300"
-              color={"primary.900"}
-              fontSize="20px"
-              aria-label="dismiss"
-              icon={<MdClose />}
-              onClick={(e) => {
-                e.preventDefault();
-                onToggle();
-              }}
-            />
-          )}
-        </Box>
+      <Box w="full" display="flex" justifyContent="flex-end">
+        {isDismissable && (
+          <IconButton
+            isRound={true}
+            backgroundColor="white.300"
+            color={"primary.900"}
+            fontSize="20px"
+            aria-label="dismiss"
+            icon={<MdClose />}
+            onClick={(e) => {
+              e.preventDefault();
+              onToggle();
+            }}
+          />
+        )}
       </Box>
-    </Fade>
+    </Box>
+    // </Fade>
   );
 };
 

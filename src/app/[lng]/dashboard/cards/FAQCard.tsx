@@ -1,13 +1,13 @@
 import DashboardCard from "@/app/components/dashboard/DashboardCard";
 import { useTranslation } from "@/app/i18n/client";
-import { Divider, HStack, Stack, Text } from "@chakra-ui/react";
+import { BoxProps, Divider, HStack, Stack, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
 
-type Props = { lng: string };
+type Props = { lng: string; boxProps?: BoxProps };
 
-const FAQCard: React.FC<Props> = ({ lng }) => {
+const FAQCard: React.FC<Props> = ({ lng, boxProps }) => {
   const { t } = useTranslation(lng);
   return (
     <DashboardCard
@@ -22,14 +22,16 @@ const FAQCard: React.FC<Props> = ({ lng }) => {
       }
       childrenWrapperProps={{
         flexDirection: "column",
-        gap: "7",
         alignItems: "flex-start",
+        height: "100%",
+        justifyContent: "space-between",
       }}
       onButtonClick={() => {
         console.log("button clicked");
       }}
+      boxProps={{ ...boxProps }}
     >
-      <Stack spacing="4" mb="1">
+      <Stack spacing="4">
         <Text fontSize="13px" fontWeight="700" mb="2">
           {t("frequently_asked_questions")}
         </Text>

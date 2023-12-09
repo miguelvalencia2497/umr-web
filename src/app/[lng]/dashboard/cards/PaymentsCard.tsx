@@ -1,12 +1,12 @@
 import DashboardCard from "@/app/components/dashboard/DashboardCard";
 import { useTranslation } from "@/app/i18n/client";
 import { titleize } from "@/app/utils/string";
-import { Stack, Text } from "@chakra-ui/react";
+import { BoxProps, Stack, Text } from "@chakra-ui/react";
 import Image from "next/image";
 
-type Props = { lng: string };
+type Props = { lng: string; boxProps?: BoxProps };
 
-const PaymentsCard: React.FC<Props> = ({ lng }) => {
+const PaymentsCard: React.FC<Props> = ({ lng, boxProps }) => {
   const { t } = useTranslation(lng);
   return (
     <DashboardCard
@@ -20,6 +20,7 @@ const PaymentsCard: React.FC<Props> = ({ lng }) => {
         />
       }
       onButtonClick={() => {}}
+      boxProps={{ ...boxProps }}
     >
       <Stack spacing="4">
         <Text fontSize="13px" fontWeight="700">

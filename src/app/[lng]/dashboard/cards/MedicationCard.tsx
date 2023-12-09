@@ -1,13 +1,13 @@
 import DashboardCard from "@/app/components/dashboard/DashboardCard";
 import { useTranslation } from "@/app/i18n/client";
 import { capitalize, titleize } from "@/app/utils/string";
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Stack, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { MdAdd } from "react-icons/md";
 
-type Props = { lng: string };
+type Props = { lng: string; boxProps?: BoxProps };
 
-const MedicationCard: React.FC<Props> = ({ lng }) => {
+const MedicationCard: React.FC<Props> = ({ lng, boxProps }) => {
   const { t } = useTranslation(lng);
   return (
     <DashboardCard
@@ -22,8 +22,9 @@ const MedicationCard: React.FC<Props> = ({ lng }) => {
       }
       childrenWrapperProps={{
         flexDirection: "column",
-        gap: "10",
         alignItems: "flex-start",
+        height: "100%",
+        justifyContent: "space-between",
       }}
       onButtonClick={() => {
         console.log("button clicked");
@@ -32,6 +33,7 @@ const MedicationCard: React.FC<Props> = ({ lng }) => {
       boxProps={{
         background: "#FAFFFF",
         border: "1px solid #D7E5E5",
+        ...boxProps,
       }}
     >
       <Stack spacing="4">
@@ -46,7 +48,7 @@ const MedicationCard: React.FC<Props> = ({ lng }) => {
             Aug 20, 2023
           </Text>
         </Box>
-        <Box mb="5">
+        <Box>
           <Text fontSize="12px" fontWeight="400">
             {capitalize(t("medication"))}
           </Text>

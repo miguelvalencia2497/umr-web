@@ -72,20 +72,20 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
             })}
           </Heading>
         </VStack>
-        <HStack mt="24px" gap="3" alignItems="flex-start">
-          <VStack w="full" gap="5">
-            <ConsultationCard lng={lng} />
-            <QRCard lng={lng} />
-            <PrivacyCard lng={lng} />
+        <HStack mt="24px" gap="3" alignItems="flex-start" h="600px">
+          <VStack w="full" height="full" justify="center">
+            <ConsultationCard lng={lng} boxProps={{ flex: 8 }} />
+            <QRCard lng={lng} boxProps={{ flex: 2 }} />
+            <PrivacyCard lng={lng} boxProps={{ flex: 2 }} />
           </VStack>
-          <VStack w="full" gap="5">
-            <FollowUpCard lng={lng} />
-            <DependentsCard lng={lng} />
-            <PaymentsCard lng={lng} />
+          <VStack w="full" height="full" justify="center">
+            <FollowUpCard lng={lng} boxProps={{ flex: 8 }} />
+            <DependentsCard lng={lng} boxProps={{ flex: 2 }} />
+            <PaymentsCard lng={lng} boxProps={{ flex: 2 }} />
           </VStack>
-          <VStack w="full" gap="5">
-            <MedicationCard lng={lng} />
-            <FAQCard lng={lng} />
+          <VStack w="full" height="full" justify="center">
+            <MedicationCard lng={lng} boxProps={{ flex: 1 }} />
+            <FAQCard lng={lng} boxProps={{ flex: 1 }} />
           </VStack>
         </HStack>
       </ContentWrapper>
