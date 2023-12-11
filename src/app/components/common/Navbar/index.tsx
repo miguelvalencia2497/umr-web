@@ -101,6 +101,7 @@ const Navbar: React.FC<NavProps> = ({ lng }) => {
               isOpen ? onClose() : onOpen();
             }}
             variant="transparent"
+            display={{ lg: "none" }}
           >
             {isOpen ? (
               <Image src="/icon-close.svg" alt="menu" width="30" height="30" />
