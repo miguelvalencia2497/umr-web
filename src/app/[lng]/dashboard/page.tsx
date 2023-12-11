@@ -15,6 +15,8 @@ import PaymentsCard from "./cards/PaymentsCard";
 import MedicationCard from "./cards/MedicationCard";
 import FAQCard from "./cards/FAQCard";
 import PrivacyCard from "./cards/PrivacyCard";
+import { useUser } from "@/app/contexts/UserContext";
+import { useEffect, useState } from "react";
 
 type DashboardProps = {
   params: { lng: string };
@@ -22,11 +24,18 @@ type DashboardProps = {
 
 const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
   const { isMobile, isTablet, isDesktop } = useScreen();
+  const [hydrated, setHydrated] = useState(false);
   const { t } = useTranslation(lng);
-  const user = {
-    first_name: "Juan",
-    last_name: "Dela Cruz",
-  };
+  const user = useUser();
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated) {
+    return null;
+  }
+
   return (
     <>
       <Navbar lng={lng} />
@@ -55,8 +64,8 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
           </Text>
           <Heading as="h1" size="xl" fontWeight="900" color="primary.700">
             {fullName({
-              first_name: user.first_name,
-              last_name: user.last_name,
+              first_name: user?.first_name,
+              last_name: user?.last_name,
             })}
           </Heading>
         </VStack>

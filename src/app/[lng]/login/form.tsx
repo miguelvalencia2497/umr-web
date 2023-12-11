@@ -15,9 +15,9 @@ import TextField from "../../components/form/TextField";
 import { useState } from "react";
 import FormikWrapper from "../../components/form/FormikWrapper";
 import { object as YupObject, string as YupString } from "yup";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import useScreen from "@/app/hooks/useScreen";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 export type ILoginForm = {
   email: string;
@@ -27,8 +27,9 @@ export type ILoginForm = {
 const LoginForm: React.FC<{ lng: string }> = ({ lng }) => {
   const { t } = useTranslation(lng);
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const router = useRouter();
+
   const { isMobile, isTablet, isLargeTablet } = useScreen();
+  const { login } = useAuth();
 
   const schema = YupObject().shape({
     email: YupString(),
@@ -40,15 +41,8 @@ const LoginForm: React.FC<{ lng: string }> = ({ lng }) => {
     password: "",
   };
 
-  const handleSubmit = (
-    values: ILoginForm,
-    actions: FormikHelpers<ILoginForm>,
-  ) => {
-    console.log("🚀 ~ file: form.tsx:39 ~ handleSubmit ~ values:", values);
-    // login?.(values.email, values.password, () => {
-    router.push("/dashboard");
-    actions.setSubmitting(false);
-    // });
+  const handleSubmit = (values: ILoginForm) => {
+    login?.(values.email, values.password, () => {});
   };
 
   return (
