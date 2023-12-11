@@ -12,13 +12,13 @@ import {
   BoxProps,
   Icon,
   VStack,
+  Button,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import navTail from "../../../../../public/nav-tail.png";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
-import { HiMenuAlt1 } from "react-icons/hi";
 
 interface Props {
   onClick: () => void;
@@ -95,15 +95,20 @@ const Navbar: React.FC<NavProps> = ({ lng }) => {
           alignItems={"center"}
           borderBottom={{ base: "1px solid #E7E7E7", lg: "none" }}
         >
-          <Icon
-            color="black"
-            size={"md"}
-            as={isOpen ? MdClose : HiMenuAlt1}
-            aria-label={"Open Menu"}
-            display={{ lg: "none" }}
-            onClick={isOpen ? onClose : onOpen}
-            ml="16px"
-          />
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              isOpen ? onClose() : onOpen();
+            }}
+            variant="transparent"
+          >
+            {isOpen ? (
+              <Image src="/icon-close.svg" alt="menu" width="30" height="30" />
+            ) : (
+              <Image src="/menu-burger.svg" alt="menu" width="30" height="30" />
+            )}
+          </Button>
+
           <HStack w="full" justify="space-between">
             <Box flex="1" display={{ base: "none", lg: "block" }}>
               <Image src="/logo-nav.png" alt="" width={170} height={54} />
@@ -211,18 +216,41 @@ const Navbar: React.FC<NavProps> = ({ lng }) => {
                     }}
                     key={link}
                   >
-                    <Text
-                      pl="32px"
-                      textAlign="left"
-                      fontSize="16px"
-                      color="primary.700"
-                      fontWeight={activeMainNav === link ? "700" : "400"}
-                    >
-                      {capitalize(t(link))}
-                    </Text>
+                    <Box position="relative" pb="2">
+                      {activeMainNav === link ? (
+                        <Image
+                          src="/nav-tail.png"
+                          alt="nav tail"
+                          width="150"
+                          height="150"
+                          style={{
+                            position: "absolute",
+                            left: "-20px",
+                            bottom: "-10px",
+                          }}
+                        />
+                      ) : (
+                        <></>
+                      )}
+                      <Text
+                        pl="32px"
+                        textAlign="left"
+                        fontSize="16px"
+                        color="primary.700"
+                        fontWeight={activeMainNav === link ? "700" : "400"}
+                      >
+                        {capitalize(t(link))}
+                      </Text>
+                    </Box>
                   </NavLink>
                   {activeMainNav === link && (
-                    <VStack as={"nav"} background="primary.200" py="4">
+                    <VStack
+                      as={"nav"}
+                      background="primary.200"
+                      pt="4"
+                      pl="4"
+                      alignItems="flex-start"
+                    >
                       {subLinks[activeMainNav as keyof typeof subLinks]?.map(
                         (link) => (
                           <NavLink
@@ -236,7 +264,7 @@ const Navbar: React.FC<NavProps> = ({ lng }) => {
                               <Text
                                 w="max-content"
                                 color="primary.700"
-                                fontSize="13px"
+                                fontSize="16px"
                                 fontWeight={
                                   activeSubNav === link ? "700" : "400"
                                 }
