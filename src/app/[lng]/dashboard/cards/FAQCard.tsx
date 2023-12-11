@@ -32,11 +32,11 @@ const FAQCard: React.FC<Props> = ({ lng, boxProps }) => {
       boxProps={{ ...boxProps }}
     >
       <Stack spacing="4">
-        <Text fontSize="13px" fontWeight="700" mb="2">
+        <Text fontSize={["16px", "13px"]} fontWeight="700" mb="2">
           {t("frequently_asked_questions")}
         </Text>
         <HStack gap="4">
-          <Text fontSize="12px" fontWeight="400" noOfLines={2}>
+          <Text fontSize={["14px", "12px"]} fontWeight="400" noOfLines={2}>
             Dictum quis condimentum dictum maecenas.Dictum quis condimentum
             dictum maecenas.
           </Text>
@@ -48,7 +48,19 @@ const FAQCard: React.FC<Props> = ({ lng, boxProps }) => {
         </HStack>
         <Divider />
         <HStack gap="4">
-          <Text fontSize="12px" fontWeight="400" noOfLines={2}>
+          <Text fontSize={["14px", "12px"]} fontWeight="400" noOfLines={2}>
+            Dictum quis condimentum dictum maecenas.Dictum quis condimentum
+            dictum maecenas.
+          </Text>
+          <Link href="#">
+            <Text fontSize="20px" color="primary.600">
+              <MdChevronRight />
+            </Text>
+          </Link>
+        </HStack>
+        <Divider />
+        <HStack gap="4">
+          <Text fontSize={["14px", "12px"]} fontWeight="400" noOfLines={2}>
             Dictum quis condimentum dictum maecenas.Dictum quis condimentum
             dictum maecenas.
           </Text>

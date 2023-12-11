@@ -81,7 +81,8 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
           <>
             <Box
               w="100%"
-              h="320px"
+              h="1px"
+              minH="370px"
               mt="5"
               style={{ whiteSpace: "nowrap" }}
               overflowY="scroll"

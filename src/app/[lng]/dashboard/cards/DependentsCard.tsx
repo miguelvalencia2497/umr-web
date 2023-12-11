@@ -28,10 +28,10 @@ const DependentsCard: React.FC<Props> = ({ lng, boxProps }) => {
       }}
     >
       <Stack spacing="4">
-        <Text fontSize="13px" fontWeight="700">
+        <Text fontSize={["16px", "13px"]} fontWeight="700">
           {titleize(t("hmo_and_dependents"))}
         </Text>
-        <Text fontSize="12px" fontWeight="400" noOfLines={2}>
+        <Text fontSize={["14px", "12px"]} fontWeight="400" noOfLines={2}>
           Add your HMO account or add dependents here, Dictum quis condimentum
           dictum maecenas.
         </Text>

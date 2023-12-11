@@ -24,10 +24,10 @@ const PaymentsCard: React.FC<Props> = ({ lng, boxProps }) => {
       boxProps={{ ...boxProps }}
     >
       <Stack spacing="4">
-        <Text fontSize="13px" fontWeight="700">
+        <Text fontSize={["16px", "13px"]} fontWeight="700">
           {titleize(t("payment_methods"))}
         </Text>
-        <Text fontSize="12px" fontWeight="400" noOfLines={2}>
+        <Text fontSize={["14px", "12px"]} fontWeight="400" noOfLines={2}>
           Link your GCash, Debit or Credit card or Bank account here sed
           vehicula urna mattis faucibus eu erat neque bibendum.
         </Text>

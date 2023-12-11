@@ -34,33 +34,33 @@ const FollowUpCard: React.FC<Props> = ({ lng, boxProps }) => {
       boxProps={{ ...boxProps }}
     >
       <Stack spacing="4">
-        <Text fontSize="13px" fontWeight="700" mb="2">
+        <Text fontSize={["16px", "13px"]} fontWeight="700" mb="2">
           {t("upcoming_follow_ups")}
         </Text>
         <Box>
-          <Text fontSize="12px" fontWeight="400">
+          <Text fontSize={["14px", "12px"]} fontWeight="400">
             {capitalize(t("follow_up_date"))}
           </Text>
-          <Text fontSize="12px" fontWeight="500">
+          <Text fontSize={["16px", "12px"]} fontWeight="500">
             Sep 30, 2023, 4:30 PM
           </Text>
         </Box>
         <Box>
-          <Text fontSize="12px" fontWeight="400">
+          <Text fontSize={["14px", "12px"]} fontWeight="400">
             {capitalize(t("attending_physician"))}
           </Text>
-          <Text fontSize="12px" fontWeight="500">
+          <Text fontSize={["14px", "12px"]} fontWeight="500">
             Dr. Juwan Eugenio
           </Text>
         </Box>
         <Box>
-          <Text fontSize="12px" fontWeight="400">
+          <Text fontSize={["14px", "12px"]} fontWeight="400">
             {capitalize(t("clinic_or_hospital_address"))}
           </Text>
-          <Text fontSize="12px" fontWeight="500">
+          <Text fontSize={["16px", "12px"]} fontWeight="500">
             Clinic Name
           </Text>
-          <Text fontSize="12px" fontWeight="500">
+          <Text fontSize={["16px", "12px"]} fontWeight="500">
             123 Street name, City, Zip code
           </Text>
         </Box>

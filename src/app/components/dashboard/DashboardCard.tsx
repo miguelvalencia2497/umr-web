@@ -48,6 +48,7 @@ const DashboardCard: React.FC<Props> = ({
         style={{
           position: "relative",
         }}
+        color="primary.700"
         {...childrenWrapperProps}
       >
         {cardImage ? cardImage : <></>}

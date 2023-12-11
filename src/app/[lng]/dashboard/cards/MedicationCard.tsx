@@ -37,25 +37,25 @@ const MedicationCard: React.FC<Props> = ({ lng, boxProps }) => {
       }}
     >
       <Stack spacing="4">
-        <Text fontSize="13px" fontWeight="700" mb="2">
+        <Text fontSize={["16px", "13px"]} fontWeight="700" mb="2">
           {titleize(t("review_current_medication_list"))}
         </Text>
         <Box>
-          <Text fontSize="12px" fontWeight="400">
+          <Text fontSize={["14px", "12px"]} fontWeight="400">
             {capitalize(t("prescribed_date"))}
           </Text>
-          <Text fontSize="12px" fontWeight="500">
+          <Text fontSize={["16px", "12px"]} fontWeight="500">
             Aug 20, 2023
           </Text>
         </Box>
         <Box>
-          <Text fontSize="12px" fontWeight="400">
+          <Text fontSize={["14px", "12px"]} fontWeight="400">
             {capitalize(t("medication"))}
           </Text>
-          <Text fontSize="12px" fontWeight="500">
+          <Text fontSize={["16px", "12px"]} fontWeight="500">
             FeS04 tab #30, Sig: A.D.
           </Text>
-          <Text fontSize="12px" fontWeight="500">
+          <Text fontSize={["16px", "12px"]} fontWeight="500">
             Ascorbic acid #30, 500mg tab, Sig: Once a day
           </Text>
         </Box>
