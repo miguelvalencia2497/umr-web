@@ -38,7 +38,7 @@ const Links = [
 
 const subLinks = {
   home: [
-    "dashboard",
+    "my_dashboard",
     "medical_histories",
     "consultations",
     "medical_test_results",

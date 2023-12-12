@@ -4,10 +4,16 @@
     "immunizations": "immunizations",
     "privacy": "privacy",
     "faqs": "FAQs & Help",
-    "dashboard": "My Dashboard",
+    "my_dashboard": "my dashboard",
+    "dashboard": "dashboard",
     "medical_histories": "medical histories",
     "consultations": "consultations",
     "medical_test_results": "medical test results",
     "preview": "preview",
-    "current_pregnancy": "current pregnancy"
+    "current_pregnancy": "current pregnancy",
+    "administrator": "administrator",
+    "users_and_groups": "Users and Groups",
+    "patients": "patients",
+    "notifications": "notifications",
+    "reports": "reports"
 }
