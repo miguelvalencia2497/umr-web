@@ -22,7 +22,7 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
   }, []);
 
   //* End of hook //
-  if (!hydrated) return null;
+  if (!hydrated || !user) return null;
   return (
     <>
       {user?.user_roles.includes(UserRole.ADMIN) ? (
