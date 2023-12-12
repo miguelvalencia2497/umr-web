@@ -1,10 +1,10 @@
 "use client";
-import Navbar from "@/app/components/common/Navbar";
 import { useTranslation } from "@/app/i18n/client";
 import { useUser } from "@/app/contexts/UserContext";
 import { UserRole } from "../types/Users";
-import PatientDashboard from "./patient/PatientDashboard";
+import PatientDashboard from "../_patient/PatientDashboard";
 import { useEffect, useState } from "react";
+import AdminDashboard from "../_admin/AdminDashboard";
 
 type DashboardProps = {
   params: { lng: string };
@@ -26,12 +26,9 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
   return (
     <>
       {user?.user_roles.includes(UserRole.ADMIN) ? (
-        <>
-          <Navbar lng={lng} />
-          Admin Dashboard
-        </>
+        <AdminDashboard lng={lng} />
       ) : (
-        <PatientDashboard params={{ lng }} />
+        <PatientDashboard lng={lng} />
       )}
     </>
   );

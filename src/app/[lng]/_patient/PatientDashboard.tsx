@@ -2,7 +2,7 @@
 import ContentWrapper from "@/app/components/common/ContentWrapper";
 import Navbar from "@/app/components/common/Navbar";
 import NoticePanel from "@/app/components/common/NoticePanel";
-import noticeBg from "../../../../../public/notice-bg-hand.png";
+import noticeBg from "../../../../public/notice-bg-hand.png";
 import useScreen from "@/app/hooks/useScreen";
 import { fullName, sentenceize } from "@/app/utils/string";
 import { Box, HStack, Heading, Text, VStack } from "@chakra-ui/react";
@@ -19,10 +19,10 @@ import { useUser } from "@/app/contexts/UserContext";
 import { useEffect, useState } from "react";
 
 type DashboardProps = {
-  params: { lng: string };
+  lng: string;
 };
 
-const PatientDashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
+const PatientDashboard: React.FC<DashboardProps> = ({ lng }) => {
   const { isMobile, isTablet, isDesktop } = useScreen();
   const [hydrated, setHydrated] = useState(false);
   const { t } = useTranslation(lng);
