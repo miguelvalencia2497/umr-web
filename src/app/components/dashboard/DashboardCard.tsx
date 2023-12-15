@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 import { ReactElement } from "react";
 import { MdChevronRight, MdClose } from "react-icons/md";
-import Image from "next/image";
 
 type Props = {
   isDismissable?: boolean;

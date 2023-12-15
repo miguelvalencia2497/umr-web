@@ -18,7 +18,7 @@ import Image from "next/image";
 import navTail from "../../../../../public/nav-tail.png";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { MdClose } from "react-icons/md";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 interface Props {
   onClick: () => void;
@@ -38,7 +38,7 @@ const Links = [
 
 const subLinks = {
   home: [
-    "dashboard",
+    "my_dashboard",
     "medical_histories",
     "consultations",
     "medical_test_results",
@@ -85,6 +85,7 @@ const Navbar: React.FC<NavProps> = ({ lng }) => {
   const [activeSubNav, setActiveSubNav] = useState<string | undefined>(
     pathname.split("/").pop(),
   );
+  const { logout } = useAuth();
 
   return (
     <>
@@ -160,6 +161,9 @@ const Navbar: React.FC<NavProps> = ({ lng }) => {
               ))}
             </HStack>
             <Flex justify="flex-end" flex="1"></Flex>
+            <Button size="xs" variant="transparent" onClick={() => logout?.()}>
+              Temporary Logout
+            </Button>
           </HStack>
         </Flex>
         {!!activeMainNav && (
