@@ -9,9 +9,9 @@ type Props = {
 const AdminWrapper: React.FC<Props> = ({ lng, children, ...props }) => {
   return (
     <>
-      <HStack>
-        <SideNavigation lng={lng} flex="1" />
-        <Box flex="6">{children}</Box>
+      <HStack align="flex-start">
+        <SideNavigation lng={lng} flex="2" />
+        <Box flex="8">{children}</Box>
       </HStack>
     </>
   );

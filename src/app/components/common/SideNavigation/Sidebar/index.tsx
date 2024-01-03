@@ -5,11 +5,13 @@ import Container from "./Container";
 import { useAuth } from "@/app/contexts/AuthContext";
 import { useTranslation } from "@/app/i18n/client";
 import { capitalize } from "@/app/utils/string";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 type Props = { lng: string; items: string[] };
 const SideBar: React.FC<Props> = ({ lng, items, ...props }) => {
   const { t } = useTranslation(lng, "nav");
+  const router = useRouter();
 
   const { logout } = useAuth();
 
@@ -21,6 +23,9 @@ const SideBar: React.FC<Props> = ({ lng, items, ...props }) => {
           key={index}
           w="full"
           justifyContent="flex-start"
+          onClick={() => {
+            router.push(item);
+          }}
         >
           <Box mr="4">
             <Image
