@@ -1,4 +1,13 @@
-import { BoxProps } from "@chakra-ui/react";
+import {
+  BoxProps,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import {
   ColumnDef,
   flexRender,
@@ -18,38 +27,37 @@ const SimpleTable: <T>(
     getCoreRowModel: getCoreRowModel(),
   });
   return (
-    <div className="p-2">
-      <table>
-        <thead>
+    <TableContainer>
+      <Table variant="simple">
+        <Thead>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <Tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <Th key={header.id}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
                         header.column.columnDef.header,
                         header.getContext(),
                       )}
-                </th>
+                </Th>
               ))}
-            </tr>
+            </Tr>
           ))}
-        </thead>
-        <tbody>
+        </Thead>
+        <Tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <Tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <Td key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
+                </Td>
               ))}
-            </tr>
+            </Tr>
           ))}
-        </tbody>{" "}
-      </table>
-      <div className="h-4" />
-    </div>
+        </Tbody>
+      </Table>
+    </TableContainer>
   );
 };
 
