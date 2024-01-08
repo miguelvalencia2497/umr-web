@@ -13,7 +13,7 @@ const ConsultationCard: React.FC<Props> = ({ lng, boxProps }) => {
   return (
     <DashboardCard
       boxProps={{
-        background: "#FAFFFF",
+        background: "white.700",
         border: "1px solid #D7E5E5",
         ...boxProps,
       }}

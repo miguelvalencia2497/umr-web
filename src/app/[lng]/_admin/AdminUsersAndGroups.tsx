@@ -1,22 +1,30 @@
 "use client";
 
 import {
+  Box,
+  Button,
+  HStack,
+  Input,
   Tab,
   TabIndicator,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
+  VStack,
 } from "@chakra-ui/react";
 import UserTable from "../users_and_groups/tables/UserTable";
 import AdminWrapper from "./AdminWrapper";
 import GroupTable from "../users_and_groups/tables/GroupTable";
+import { useTranslation } from "@/app/i18n/client";
+import TextField from "@/app/components/form/TextField";
 
 type Props = {
   lng: string;
 };
 
 const AdminUsersAndGroups: React.FC<Props> = ({ lng, ...props }) => {
+  const { t } = useTranslation(lng);
   return (
     <AdminWrapper lng={lng}>
       <Tabs position="relative" variant="unstyled">
@@ -31,10 +39,10 @@ const AdminUsersAndGroups: React.FC<Props> = ({ lng, ...props }) => {
           borderRadius="5px"
         />
         <TabPanels>
-          <TabPanel>
-            <UserTable />
+          <TabPanel p="0">
+            <UserTable lng={lng} />
           </TabPanel>
-          <TabPanel>
+          <TabPanel p="0">
             <GroupTable />
           </TabPanel>
         </TabPanels>

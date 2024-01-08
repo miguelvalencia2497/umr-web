@@ -5,7 +5,7 @@ export type User = {
   email: string;
   permissions: UserPermissions[];
   groups: UserGroup[];
-  status: string;
+  status: UserStatus;
 };
 
 export enum UserPermissions {
@@ -20,3 +20,9 @@ export type UserGroup = {
   permissions: UserPermissions[];
   users: User[];
 };
+
+export enum UserStatus {
+  ACTIVE = "active",
+  PENDING_ACTIVATION = "pending_activation",
+  DEACTIVATED = "deactivated",
+}

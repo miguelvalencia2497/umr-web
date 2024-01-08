@@ -11,7 +11,7 @@ export const theme = extendTheme({
         field: {
           color: "primary.700",
           opacity: "0.6",
-          border: "1px solid white.600",
+          border: "1px solid #E7E7E7",
           borderRadius: "8px",
           _placeholder: { color: "primary.700" },
         },

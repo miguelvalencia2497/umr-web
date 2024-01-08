@@ -10,17 +10,22 @@ export const colors = {
     200: "#DFEFF2",
   },
   success: {},
-  warning: {},
+  warning: {
+    200: "#F67B09",
+  },
   error: {
     400: "#E40000",
     300: "#FFECEC",
   },
   white: {
-    700: "FAFFFF",
-    600: "E7E7E7",
+    700: "#FAFFFF",
+    600: "#E7E7E7",
     500: "#F0F0F0",
     400: "#FDFDFD",
     300: "#FFFFFF",
     200: "#C0DEE5",
+  },
+  gray: {
+    200: "#A6A6A6",
   },
 };

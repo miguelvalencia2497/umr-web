@@ -35,3 +35,7 @@ export function sentenceize(s: string) {
 export function fullName({ first_name = "", last_name = "" }) {
   return `${first_name} ${last_name}`.trim();
 }
+
+export function truncate(string: string, count: number) {
+  return string.substring(0, count) + "...";
+}

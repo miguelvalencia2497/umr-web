@@ -11,7 +11,9 @@ const AdminWrapper: React.FC<Props> = ({ lng, children, ...props }) => {
     <>
       <HStack align="flex-start">
         <SideNavigation lng={lng} flex="2" />
-        <Box flex="8">{children}</Box>
+        <Box flex="7" px="6" py="8">
+          {children}
+        </Box>
       </HStack>
     </>
   );
