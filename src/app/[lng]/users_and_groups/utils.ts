@@ -1,27 +1,37 @@
-import { User, UserGroup, UserPermissions, UserStatus } from "./types";
+import {
+  GroupPermissions,
+  User,
+  UserGroup,
+  UserPermissions,
+  UserStatus,
+} from "./types";
 
 export const defaultGroupsData: UserGroup[] = [
   {
     id: 1,
-    name: "St. Luke’s Medical Center",
-    address:
-      "32nd Street corner 5th Avenue, Rizal Drive, Bonifacio Global City Taguig, Manila, 1634 Philippines",
-    permissions: [UserPermissions.ADMINISTRATOR, UserPermissions.PHYSICIANS],
-    users: [],
+    name: "Dermatologists",
+    description: "Focuses on skin, hair, and nail health.",
+    permissions: [
+      GroupPermissions.VIEW,
+      GroupPermissions.EDIT,
+      GroupPermissions.UPLOAD,
+    ],
+    userCount: 300,
   },
   {
     id: 2,
-    name: "Ospital ng Makati",
-    address: "Sampaguita St, Taguig, 1218 Metro Manila",
-    permissions: [UserPermissions.ADMINISTRATOR, UserPermissions.PHYSICIANS],
-    users: [],
+    name: "Endocrinologists",
+    description: "Deals with hormonal disorders and the endocrine system.",
+    permissions: [GroupPermissions.VIEW, GroupPermissions.EDIT],
+    userCount: 240,
   },
   {
     id: 3,
-    name: "The Medical City",
-    address: "Ortigas Ave, Pasig, Metro Manila.",
-    permissions: [UserPermissions.ADMINISTRATOR, UserPermissions.PHYSICIANS],
-    users: [],
+    name: "Pediatricians",
+    description:
+      "Specialize in providing medical care for infants, children, and adolescents.",
+    permissions: [GroupPermissions.VIEW],
+    userCount: 100,
   },
 ];
 

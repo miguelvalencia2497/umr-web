@@ -39,10 +39,10 @@ const AdminUsersAndGroups: React.FC<Props> = ({ lng, ...props }) => {
           borderRadius="5px"
         />
         <TabPanels>
-          <TabPanel p="0">
+          <TabPanel p="0" maxW={"100%"}>
             <UserTable lng={lng} />
           </TabPanel>
-          <TabPanel p="0">
+          <TabPanel p="0" maxW={"100%"}>
             <GroupTable />
           </TabPanel>
         </TabPanels>

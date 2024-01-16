@@ -2,6 +2,7 @@
 
 import { BoxProps } from "@chakra-ui/react";
 import SideBar from "./Sidebar";
+import useScreen from "@/app/hooks/useScreen";
 
 type Props = { lng: string } & BoxProps;
 
@@ -14,6 +15,11 @@ const Links = [
 ];
 
 const SideNavigation: React.FC<Props> = ({ ...props }) => {
+  const { isMobile } = useScreen();
+  if (isMobile) {
+    return null;
+  }
+
   return <SideBar items={Links} {...props} />;
 };
 

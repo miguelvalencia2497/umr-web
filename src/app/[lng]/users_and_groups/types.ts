@@ -13,12 +13,18 @@ export enum UserPermissions {
   ADMINISTRATOR = "administrator",
 }
 
+export enum GroupPermissions {
+  VIEW = "view",
+  EDIT = "edit",
+  UPLOAD = "upload",
+}
+
 export type UserGroup = {
   id: number;
   name: string;
-  address: string;
-  permissions: UserPermissions[];
-  users: User[];
+  description: string;
+  permissions: GroupPermissions[];
+  userCount: number;
 };
 
 export enum UserStatus {

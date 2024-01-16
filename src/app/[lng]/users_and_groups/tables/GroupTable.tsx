@@ -5,11 +5,12 @@ import { UserGroup } from "../types";
 import { defaultGroupsData } from "../utils";
 import SimpleTable from "@/app/components/common/Tables/SimpleTable";
 import { capitalize, truncate } from "@/app/utils/string";
+import useScreen from "@/app/hooks/useScreen";
 
 const GroupTable = () => {
   const [data, setData] = useState(() => [...defaultGroupsData]);
-
   const columnHelper = createColumnHelper<UserGroup>();
+  const { isMobile } = useScreen();
 
   const columns = [
     columnHelper.accessor((row) => row, {
@@ -17,7 +18,11 @@ const GroupTable = () => {
       cell: (info) => (
         <Box>
           <Text>{info.getValue().name}</Text>
-          <Text fontWeight="400">{truncate(info.getValue().address, 90)}</Text>
+          <Text fontWeight="400">
+            {info.getValue().description.length > 90
+              ? truncate(info.getValue().description, 90)
+              : info.getValue().description}
+          </Text>
         </Box>
       ),
       header: () => <span>Group name</span>,
@@ -27,20 +32,22 @@ const GroupTable = () => {
       cell: (info) => {
         return info.getValue().map((permission, i) => (
           <>
-            {capitalize(permission)}
+            {info.getValue().length > 1 && i === info.getValue().length - 1
+              ? "and "
+              : ""}
+            {i === 0 ? capitalize(permission) : permission}
             {i !== info.getValue().length - 1 ? ", " : ""}
           </>
         ));
       },
       header: () => <span>Permissions</span>,
     }),
-    columnHelper.accessor((row) => row.users, {
+    columnHelper.accessor((row) => row.userCount, {
       id: "users",
       cell: (info) => {
         return (
           <Text>
-            {info.getValue().length}{" "}
-            {info.getValue().length === 1 ? "member" : "members"}
+            {info.getValue()} {info.getValue() === 1 ? "member" : "members"}
           </Text>
         );
       },
@@ -53,13 +60,30 @@ const GroupTable = () => {
     }),
   ];
 
+  const mobileColumns = [
+    columnHelper.accessor((row) => row, {
+      id: "group_name",
+      cell: (info) => (
+        <Box>
+          <Text>{info.getValue().name}</Text>
+          <Text fontWeight="400">
+            {truncate(info.getValue().description, 40)}
+          </Text>
+        </Box>
+      ),
+      header: () => <span>Group name</span>,
+    }),
+  ];
+
   return (
     <SimpleTable<UserGroup>
       data={data}
       columns={columns}
+      mobileColumns={mobileColumns}
       onSearch={() => {}}
       inputSearchProps={{ placeholder: "Search group" }}
       onFilter={() => {}}
+      hideHeaders={isMobile}
     />
   );
 };
