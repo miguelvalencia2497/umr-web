@@ -27,8 +27,8 @@ const AdminHeader: React.FC<Props> = ({ ...props }) => {
   return (
     <HStack {...props} justify={"space-between"}>
       <HStack>
-        <Button variant="transparent">
-          <Box w="40px">
+        <Button variant="transparent" p={0}>
+          <Box w={{ base: "28px", md: "40px" }}>
             <Image
               src={"/menu-burger.svg"}
               alt="menu-icon"
@@ -37,7 +37,19 @@ const AdminHeader: React.FC<Props> = ({ ...props }) => {
             />
           </Box>
         </Button>
-        <InputGroup width="320px">
+        <Box display={{ base: "block", md: "none" }}>
+          <Button variant="transparent" p={0}>
+            <Box w="24px">
+              <Image
+                src={"/icon-search.svg"}
+                alt="menu-icon"
+                width={100}
+                height={100}
+              />
+            </Box>
+          </Button>
+        </Box>
+        <InputGroup width="320px" display={{ base: "none", md: "block" }}>
           <InputLeftElement>
             <Image alt="search" src="/icon-search.svg" width="20" height="20" />
           </InputLeftElement>
@@ -52,7 +64,13 @@ const AdminHeader: React.FC<Props> = ({ ...props }) => {
         </InputGroup>
       </HStack>
       <HStack>
-        <VStack align={"flex-end"} justify={"center"} gap={0} mr={2}>
+        <VStack
+          display={{ base: "none", md: "block" }}
+          align={"flex-end"}
+          justify={"center"}
+          gap={0}
+          mr={2}
+        >
           <Text color="primary.100" fontWeight={700} fontSize={"13px"}>
             {fullName({
               first_name: user?.first_name,
@@ -63,7 +81,7 @@ const AdminHeader: React.FC<Props> = ({ ...props }) => {
             EID: CBDE1234
           </Text>
         </VStack>
-        <Box mr={3}>
+        <Box mr={{ base: 0, md: 3 }}>
           <Button variant={"transparent"} p={0}>
             <Box width={"30px"}>
               <Image
@@ -73,9 +91,16 @@ const AdminHeader: React.FC<Props> = ({ ...props }) => {
                 height={100}
               />
             </Box>
+            <Box
+              display={{ base: "inline-block", md: "none" }}
+              fontSize={"20px"}
+              ml={2}
+            >
+              <MdKeyboardArrowDown />
+            </Box>
           </Button>
         </Box>
-        <Box>
+        <Box display={{ base: "none", md: "block" }}>
           <IconButton
             variant={"transparent"}
             aria-label="menu-dropdown"
