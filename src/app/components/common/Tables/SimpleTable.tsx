@@ -77,7 +77,7 @@ const SimpleTable: <T>(
           alignSelf="flex-end"
         >
           {!!onSearch && (
-            <InputGroup>
+            <InputGroup flex={6}>
               <InputLeftElement>
                 <Image
                   alt="search"
@@ -94,7 +94,6 @@ const SimpleTable: <T>(
                   onSearch(value);
                 }}
                 {...inputSearchProps}
-                flex={8}
               />
             </InputGroup>
           )}
@@ -109,12 +108,12 @@ const SimpleTable: <T>(
               px={{ base: "3", md: "4" }}
               flex={1}
             >
-              <Box mr={{ base: "0", md: "2" }}>
+              <Box mr={{ base: "0", md: "2" }} w={isMobile ? "24px" : "20px"}>
                 <Image
                   alt="filter"
                   src="/icon-filter.svg"
-                  width={isMobile ? "100" : "40"}
-                  height={isMobile ? "100" : "40"}
+                  width={100}
+                  height={100}
                 />
               </Box>
               {!isMobile && <Text>Filter</Text>}
