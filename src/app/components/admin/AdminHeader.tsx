@@ -28,14 +28,16 @@ const AdminHeader: React.FC<Props> = ({ ...props }) => {
     <HStack {...props} justify={"space-between"}>
       <HStack>
         <Button variant="transparent">
-          <Image
-            src={"/menu-burger.svg"}
-            alt="menu-icon"
-            width={30}
-            height={30}
-          />
+          <Box w="40px">
+            <Image
+              src={"/menu-burger.svg"}
+              alt="menu-icon"
+              width={100}
+              height={100}
+            />
+          </Box>
         </Button>
-        <InputGroup>
+        <InputGroup width="320px">
           <InputLeftElement>
             <Image alt="search" src="/icon-search.svg" width="20" height="20" />
           </InputLeftElement>
@@ -63,18 +65,21 @@ const AdminHeader: React.FC<Props> = ({ ...props }) => {
         </VStack>
         <Box mr={3}>
           <Button variant={"transparent"} p={0}>
-            <Image
-              src="/icon-avatar.svg"
-              alt="icon-avatar"
-              width={30}
-              height={30}
-            />
+            <Box width={"30px"}>
+              <Image
+                src="/icon-avatar.svg"
+                alt="icon-avatar"
+                width={100}
+                height={100}
+              />
+            </Box>
           </Button>
         </Box>
         <Box>
           <IconButton
             variant={"transparent"}
             aria-label="menu-dropdown"
+            fontSize="20px"
             icon={<MdKeyboardArrowDown />}
           />
         </Box>
@@ -83,12 +88,14 @@ const AdminHeader: React.FC<Props> = ({ ...props }) => {
         </Center>
         <Box>
           <Button variant={"transparent"} p={0}>
-            <Image
-              src="/icon-notification-unread.svg"
-              alt="icon-avatar"
-              width={30}
-              height={30}
-            />
+            <Box width={"30px"}>
+              <Image
+                src="/icon-notification-unread.svg"
+                alt="icon-avatar"
+                width={100}
+                height={100}
+              />
+            </Box>
           </Button>
         </Box>
       </HStack>
