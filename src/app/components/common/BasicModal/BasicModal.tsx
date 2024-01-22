@@ -29,7 +29,6 @@ const BasicModal: React.FC<Props> = ({
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>
-
         {actions ? <ModalFooter>{actions}</ModalFooter> : null}
       </ModalContent>
     </Modal>
