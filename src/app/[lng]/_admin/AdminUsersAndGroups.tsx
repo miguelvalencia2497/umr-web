@@ -27,6 +27,7 @@ import TextField from "@/app/components/form/TextField";
 import { useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import Image from "next/image";
+import BarGraph from "@/app/components/common/BarGraph/BarGraph";
 
 type Props = {
   lng: string;
@@ -228,9 +229,28 @@ const AdminUsersAndGroups: React.FC<Props> = ({ lng, ...props }) => {
         </HStack>
         <TabPanels>
           <TabPanel p="0" maxW={"100%"}>
+            <BarGraph
+              type={t("user")}
+              data={[
+                { title: t("active"), count: 79, color: "primary.600" },
+                { title: t("pending"), count: 16, color: "warning.200" },
+                { title: t("deleted"), count: 5, color: "error.400" },
+                { title: t("deactivated"), count: 1, color: "gray.300" },
+              ]}
+              wrapperProps={{ mt: "27px", mb: "24px" }}
+            />
             <UserTable lng={lng} />
           </TabPanel>
           <TabPanel p="0" maxW={"100%"}>
+            <BarGraph
+              type={t("group")}
+              data={[
+                { title: t("active"), count: 5, color: "primary.600" },
+                { title: t("deleted"), count: 1, color: "error.400" },
+                { title: t("suspended"), count: 2, color: "gray.300" },
+              ]}
+              wrapperProps={{ mt: "27px", mb: "24px" }}
+            />
             <GroupTable />
           </TabPanel>
         </TabPanels>

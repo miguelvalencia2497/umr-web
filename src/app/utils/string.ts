@@ -39,3 +39,6 @@ export function fullName({ first_name = "", last_name = "" }) {
 export function truncate(string: string, count: number) {
   return string.substring(0, count) + "...";
 }
+
+export const pluralize = (count: number, noun: string, suffix = "s") =>
+  `${noun}${count !== 1 ? suffix : ""}`;
