@@ -1,6 +1,7 @@
-import { extendTheme } from "@chakra-ui/react";
+import { FormLabel, extendTheme } from "@chakra-ui/react";
 import { fonts } from "./fonts";
 import { colors } from "./colors";
+import { modalTheme } from "./modalTheme";
 
 export const theme = extendTheme({
   colors,
@@ -70,5 +71,14 @@ export const theme = extendTheme({
         },
       },
     },
+    FormLabel: {
+      baseStyle: {
+        color: "primary.500",
+        fontSize: "12px",
+        fontWeight: "400",
+        mb: "4px",
+      },
+    },
+    Modal: modalTheme,
   },
 });

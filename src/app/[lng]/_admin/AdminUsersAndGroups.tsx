@@ -18,6 +18,7 @@ import {
   Tabs,
   Text,
   VStack,
+  useDisclosure,
 } from "@chakra-ui/react";
 import UserTable from "../users_and_groups/tables/UserTable";
 import AdminWrapper from "./AdminWrapper";
@@ -28,6 +29,7 @@ import { useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import Image from "next/image";
 import BarGraph from "@/app/components/common/BarGraph/BarGraph";
+import CreateUserModal from "../users_and_groups/modals/CreateUserModal/CreateUserModal";
 
 type Props = {
   lng: string;
@@ -40,6 +42,8 @@ const AdminUsersAndGroups: React.FC<Props> = ({ lng, ...props }) => {
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
   };
+
+  const createUserModalState = useDisclosure();
 
   return (
     <AdminWrapper lng={lng}>
@@ -139,7 +143,13 @@ const AdminUsersAndGroups: React.FC<Props> = ({ lng, ...props }) => {
                   </MenuItem>
                 </MenuList>
               </Menu>
-              <Button fontSize={"13px"} fontWeight={700}>
+              <Button
+                fontSize={"13px"}
+                fontWeight={700}
+                onClick={() => {
+                  createUserModalState.onOpen();
+                }}
+              >
                 Create new user
               </Button>
             </HStack>
@@ -255,6 +265,7 @@ const AdminUsersAndGroups: React.FC<Props> = ({ lng, ...props }) => {
           </TabPanel>
         </TabPanels>
       </Tabs>
+      <CreateUserModal lng={lng} {...createUserModalState} />
     </AdminWrapper>
   );
 };

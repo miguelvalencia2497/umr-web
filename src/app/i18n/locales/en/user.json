@@ -3,5 +3,13 @@
         "active": "Active",
         "pending_activation": "Pending activation",
         "deactivated": "Deactivated"
-    }
+    },
+    "create_new_user": "Create new user",
+    "add_user": "Add user",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "prc_registration_number": "PRC Registration Number",
+    "email_address": "Email address",
+    "mobile_number": "Mobile number",
+    "an_activation_email_will_be_sent": "An activation email will be automatically sent to the user’s email address"
 }

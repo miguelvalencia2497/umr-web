@@ -9,7 +9,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { capitalize, titleize } from "../../utils/string";
-import { FormikHelpers } from "formik";
 import { useTranslation } from "../../i18n/client";
 import TextField from "../../components/form/TextField";
 import { useState } from "react";
