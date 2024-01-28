@@ -3,6 +3,7 @@ import { fonts } from "./fonts";
 import { colors } from "./colors";
 import { modalTheme } from "./modalTheme";
 import { accordionTheme } from "./accordionTheme";
+import { badgeTheme } from "./badge";
 
 export const theme = extendTheme({
   colors,
@@ -82,5 +83,6 @@ export const theme = extendTheme({
     },
     Modal: modalTheme,
     Accordion: accordionTheme,
+    Badge: badgeTheme,
   },
 });

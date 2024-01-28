@@ -68,6 +68,7 @@ const SimpleTable: <T>(
       p="0"
       spacing="0"
       maxW={"100%"}
+      {...props}
     >
       {!!onSearch || !!onFilter ? (
         <HStack
