@@ -1,4 +1,4 @@
-import { Button, HStack, Heading, VStack } from "@chakra-ui/react";
+import { Button, Flex, HStack, Heading, VStack } from "@chakra-ui/react";
 import AdminWrapper from "./AdminWrapper";
 import { useTranslation } from "@/app/i18n/client";
 import { capitalize } from "@/app/utils/string";
@@ -48,8 +48,14 @@ const AdmingGroupsCreate: React.FC<Props> = ({ lng }) => {
                 </Button>
               </HStack>
             </HStack>
-            <HStack align={"flex-start"} w="full" mt="5">
-              <VStack flex="5" gap="4">
+            <Flex
+              flexDirection={{ base: "column", md: "row" }}
+              align={"flex-start"}
+              w="full"
+              mt="5"
+              gap="4"
+            >
+              <VStack flex="5" gap="4" w="full">
                 <Panel w="full">
                   <GroupDetails lng={lng} />
                 </Panel>
@@ -57,12 +63,12 @@ const AdmingGroupsCreate: React.FC<Props> = ({ lng }) => {
                   <GroupMembers lng={lng} />
                 </Panel>
               </VStack>
-              <VStack flex="8">
+              <VStack flex="8" w="full">
                 <Panel w="full">
                   <GroupSettings lng={lng} />
                 </Panel>
               </VStack>
-            </HStack>
+            </Flex>
           </>
         )}
       />
