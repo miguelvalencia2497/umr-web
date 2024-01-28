@@ -2,6 +2,7 @@ import { FormLabel, extendTheme } from "@chakra-ui/react";
 import { fonts } from "./fonts";
 import { colors } from "./colors";
 import { modalTheme } from "./modalTheme";
+import { accordionTheme } from "./accordionTheme";
 
 export const theme = extendTheme({
   colors,
@@ -80,5 +81,6 @@ export const theme = extendTheme({
       },
     },
     Modal: modalTheme,
+    Accordion: accordionTheme,
   },
 });

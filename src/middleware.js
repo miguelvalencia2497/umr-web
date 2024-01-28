@@ -30,6 +30,7 @@ export function middleware(req) {
       '/icon-search.svg',
       '/icon-negative.svg',
       '/icon-notification-unread.svg',
+      '/icon-union.svg',
       '/icon-warning.svg',
       '/logo-nav.png',
       '/menu-burger.svg',

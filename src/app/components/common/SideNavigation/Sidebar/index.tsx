@@ -24,7 +24,7 @@ const SideBar: React.FC<Props> = ({ lng, items, ...props }) => {
           w="full"
           justifyContent="flex-start"
           onClick={() => {
-            router.push(item);
+            router.push(`/${item}`);
           }}
         >
           <Box mr="4">

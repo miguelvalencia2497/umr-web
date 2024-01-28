@@ -67,7 +67,7 @@ const AuthProvider: React.FC<{ children: any }> = (props) => {
       const redirectPath = getRedirectPathFromLocation()
         ? `?redirectPath=${getRedirectPathFromLocation()}`
         : "/dashboard";
-      router.push(`${redirectPath}`);
+      // router.push(`${redirectPath}`);
     } else {
       router.push("/login");
     }

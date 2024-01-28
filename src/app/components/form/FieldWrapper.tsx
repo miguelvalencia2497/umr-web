@@ -7,7 +7,7 @@ import {
   FormLabel,
 } from "@chakra-ui/form-control";
 import { memo } from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, TextProps } from "@chakra-ui/react";
 
 interface IMeta {
   touched: boolean;
@@ -19,6 +19,9 @@ export interface IFieldWrapperProps {
   value?: unknown;
   disabled?: boolean;
   label?: string;
+  labelProps?: TextProps;
+  tooltipText?: string | JSX.Element;
+  tooltipTextProps?: TextProps;
   placeholder?: string;
   // https://jisho.org/search/%E3%81%AF%E3%82%84%E3%81%84
   hayai?: boolean;

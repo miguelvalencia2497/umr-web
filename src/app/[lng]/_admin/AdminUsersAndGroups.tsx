@@ -30,6 +30,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import Image from "next/image";
 import BarGraph from "@/app/components/common/BarGraph/BarGraph";
 import CreateUserModal from "../users_and_groups/modals/CreateUserModal/CreateUserModal";
+import { useRouter } from "next/navigation";
 
 type Props = {
   lng: string;
@@ -38,6 +39,7 @@ type Props = {
 const AdminUsersAndGroups: React.FC<Props> = ({ lng, ...props }) => {
   const { t } = useTranslation(lng);
   const [tabIndex, setTabIndex] = useState<number>(0);
+  const router = useRouter();
 
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
@@ -231,7 +233,13 @@ const AdminUsersAndGroups: React.FC<Props> = ({ lng, ...props }) => {
                   </MenuItem>
                 </MenuList>
               </Menu>
-              <Button fontSize={"13px"} fontWeight={700}>
+              <Button
+                fontSize={"13px"}
+                fontWeight={700}
+                onClick={() => {
+                  router.push("/users_and_groups/groups/create");
+                }}
+              >
                 Create new group
               </Button>
             </HStack>

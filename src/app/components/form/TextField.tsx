@@ -4,11 +4,13 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Textarea,
 } from "@chakra-ui/react";
 import FieldWrapper, { IFieldWrapperProps } from "./FieldWrapper";
 
 type TextFieldProps<T> = IFieldWrapperProps & {
   type?: string;
+  textarea?: boolean;
   inputLeft?: React.ReactElement;
   inputRight?: React.ReactElement;
   inputRightElementProps?: BoxProps;
@@ -18,6 +20,7 @@ type TextFieldProps<T> = IFieldWrapperProps & {
 
 const TextField: React.FC<TextFieldProps<unknown>> = ({
   type,
+  textarea = false,
   inputLeft = null,
   inputRight = null,
   inputRightElementProps = null,
@@ -36,6 +39,7 @@ const TextField: React.FC<TextFieldProps<unknown>> = ({
               </InputLeftElement>
             )}
             <Input
+              as={textarea ? Textarea : undefined}
               type={type}
               placeholder={placeholder}
               disabled={form.isSubmitting || props.disabled}
