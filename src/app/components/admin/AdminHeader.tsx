@@ -150,7 +150,11 @@ const AdminHeader: React.FC<Props> = ({ lng, ...props }) => {
                   {t("switch_to")}
                 </Text>
               </Box>
-              <MenuItem onClick={() => login?.("", "", () => {})}>
+              <MenuItem
+                onClick={() => {
+                  login?.("", "", () => {});
+                }}
+              >
                 <HStack w="full" justify={"space-between"}>
                   <Text
                     fontSize={"12px"}
@@ -169,7 +173,11 @@ const AdminHeader: React.FC<Props> = ({ lng, ...props }) => {
                   </Box>
                 </HStack>
               </MenuItem>
-              <MenuItem onClick={() => logout?.()}>
+              <MenuItem
+                onClick={() => {
+                  logout?.();
+                }}
+              >
                 <HStack w="full" justify={"space-between"}>
                   <Text
                     fontSize={"12px"}
