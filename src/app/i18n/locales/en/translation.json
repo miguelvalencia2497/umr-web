@@ -24,5 +24,8 @@
     "review_current_medication_list": "Review current Medication list",
     "prescribed_date": "Prescribed date",
     "medication": "Medication",
-    "frequently_asked_questions": "Frequently asked Questions"
+    "frequently_asked_questions": "Frequently asked Questions",
+    "switch_to": "Switch to",
+    "patient_login": "Patient login",
+    "logout": "Log out"
 }

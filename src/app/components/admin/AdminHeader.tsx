@@ -1,5 +1,7 @@
+import { useAuth } from "@/app/contexts/AuthContext";
 import { useUser } from "@/app/contexts/UserContext";
-import { fullName } from "@/app/utils/string";
+import { useTranslation } from "@/app/i18n/client";
+import { capitalize, fullName } from "@/app/utils/string";
 import {
   Box,
   BoxProps,
@@ -11,16 +13,23 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
-type Props = {} & BoxProps;
+type Props = { lng: string } & BoxProps;
 
-const AdminHeader: React.FC<Props> = ({ ...props }) => {
+const AdminHeader: React.FC<Props> = ({ lng, ...props }) => {
+  const { t } = useTranslation(lng);
+  const { login, logout } = useAuth();
   const user = useUser();
+
   const onSearch = (val: string) => {
     return;
   };
@@ -96,17 +105,91 @@ const AdminHeader: React.FC<Props> = ({ ...props }) => {
               fontSize={"20px"}
               ml={2}
             >
-              <MdKeyboardArrowDown />
+              <Menu>
+                <MenuButton border="0">
+                  <MdKeyboardArrowDown />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>asd</MenuItem>
+                </MenuList>
+              </Menu>
             </Box>
           </Button>
         </Box>
         <Box display={{ base: "none", md: "block" }}>
-          <IconButton
-            variant={"transparent"}
-            aria-label="menu-dropdown"
-            fontSize="20px"
-            icon={<MdKeyboardArrowDown />}
-          />
+          <Menu>
+            <MenuButton border="0">
+              <MdKeyboardArrowDown />
+            </MenuButton>
+            <MenuList
+              mt={4}
+              borderRadius={"8px"}
+              border="border: 1px solid"
+              borderColor={"white.600"}
+              backgroundColor={"white.400"}
+              boxShadow={"0px 1px 18px 0px rgba(0, 0, 0, 0.16)"}
+              mr="-35px"
+              zIndex={999}
+            >
+              <Box
+                width={"28px"}
+                position={"absolute"}
+                top={"0"}
+                right="-2"
+                zIndex={0}
+              >
+                <Image
+                  src="/polygon.svg"
+                  alt="arrow"
+                  width={100}
+                  height={100}
+                />
+              </Box>
+              <Box p={3}>
+                <Text fontSize={"12px"} color="primary.500">
+                  {t("switch_to")}
+                </Text>
+              </Box>
+              <MenuItem onClick={() => login?.("", "", () => {})}>
+                <HStack w="full" justify={"space-between"}>
+                  <Text
+                    fontSize={"12px"}
+                    color="primary.700"
+                    fontWeight={"500"}
+                  >
+                    {capitalize(t("patient_login"))}
+                  </Text>
+                  <Box width={"24px"}>
+                    <Image
+                      src="/icon-patient-avatar.svg"
+                      alt="icon-patient-avatar"
+                      width={100}
+                      height={100}
+                    />
+                  </Box>
+                </HStack>
+              </MenuItem>
+              <MenuItem onClick={() => logout?.()}>
+                <HStack w="full" justify={"space-between"}>
+                  <Text
+                    fontSize={"12px"}
+                    color="primary.700"
+                    fontWeight={"500"}
+                  >
+                    {capitalize(t("logout"))}
+                  </Text>
+                  <Box width={"20px"}>
+                    <Image
+                      src="/icon-logout.svg"
+                      alt="icon-logout"
+                      width={100}
+                      height={100}
+                    />
+                  </Box>
+                </HStack>
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </Box>
         <Center height={"30px"}>
           <Divider orientation="vertical" mx={2} borderColor={"white.600"} />
