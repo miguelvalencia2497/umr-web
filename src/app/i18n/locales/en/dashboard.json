@@ -3,5 +3,11 @@
     "im_a_reminder": "I'm a reminder",
     "patient_queue": "Patient queue",
     "add_patient": "Add patient",
-    "search_patient": "Search patient"
+    "search_patient": "Search patient",
+    "all_patients": "All Patients",
+    "inpatients": "inpatients",
+    "outpatients": "outpatients",
+    "er_patients": "ER Patients",
+    "assigned_to_all": "Assigned to all",
+    "assigned_to_me": "Assigned to me"
 }

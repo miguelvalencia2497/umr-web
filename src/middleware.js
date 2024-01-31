@@ -21,6 +21,7 @@ export function middleware(req) {
       '/bg-login.png',
       './icon-avatar.svg',
       './icon-add-multiple.svg',
+      '/icon-check.svg',
       '/icon-close.svg',
       '/icon-deactivate.svg',
       '/icon-delete.svg',
