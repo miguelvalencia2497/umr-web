@@ -1,26 +1,11 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import useLocalStorageState from "../hooks/useLocalStorage";
+import http from "../api/http-common";
 import { resetApplicationData } from "../utils/application";
 import { useRouter } from "next/navigation";
 import { IAuthUser, IUser, UserRole } from "../[lng]/types/Users";
 import { getRedirectPathFromLocation } from "../utils/location";
-
-//!! DUMMY USER DATA ONLY !!
-const adminUser: IUser = {
-  email: "admin@example.com",
-  first_name: "Admin",
-  last_name: "User",
-  user_roles: [UserRole.ADMIN, UserRole.USER],
-};
-
-const patientUser: IUser = {
-  email: "patient@example.com",
-  first_name: "Patient",
-  last_name: "User",
-  user_roles: [UserRole.USER],
-};
-//!! END OF DUMMY USER DATA !!
 
 export interface IAuthState {
   status?: string;
@@ -30,7 +15,12 @@ export interface IAuthState {
 
 const AuthContext = createContext<
   IAuthState & {
-    login?: (email: string, password: string, callback: () => void) => void;
+    login?: (
+      email: string,
+      password: string,
+      callback: () => void,
+      role?: UserRole,
+    ) => void;
     logout?: () => void;
   }
 >({});
@@ -74,7 +64,7 @@ const AuthProvider: React.FC<{ children: any }> = (props) => {
   }, [router]);
 
   function handleResponse(data: IAuthUser) {
-    localStorage.setItem(TOKEN_KEY, JSON.stringify(data));
+    localStorage.setItem(TOKEN_KEY, JSON.stringify(data.token));
     setAuthState((state: IAuthState) => ({
       ...state,
       status: "done",
@@ -93,24 +83,23 @@ const AuthProvider: React.FC<{ children: any }> = (props) => {
     router.push("/login");
   };
 
-  const login = (email: string, password: string, callback: () => any) => {
+  const login = (
+    email: string,
+    password: string,
+    callback: () => any,
+    role?: UserRole,
+  ) => {
     //? Implement login logic
-    if (email === adminUser.email) {
-      handleResponse({
-        access_token: "123ASD",
-        created_at: new Date().getTime(),
-        expires_in: new Date().getTime(),
-        result: { user: adminUser },
+    http
+      .post<IAuthUser>(`/${role ? role : UserRole.PATIENT}/signin`, {
+        username: email,
+        password: password,
+        domain: "test",
+      })
+      .then((res) => {
+        handleResponse({ ...res.data, role: role || UserRole.PATIENT });
+        router.push("/dashboard");
       });
-    } else {
-      handleResponse({
-        access_token: "123ASD",
-        created_at: new Date().getTime(),
-        expires_in: new Date().getTime(),
-        result: { user: patientUser },
-      });
-    }
-    router.push("/dashboard");
   };
 
   return (
