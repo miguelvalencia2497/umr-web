@@ -1,8 +1,9 @@
 export interface IAuthUser {
-  access_token: string;
+  token: string;
   created_at: number;
   expires_in: number;
   result: { user: IUser };
+  role?: UserRole;
 }
 
 export interface IUser {
@@ -14,5 +15,6 @@ export interface IUser {
 
 export enum UserRole {
   ADMIN = "admin",
-  USER = "user",
+  STAFF = "staff",
+  PATIENT = "patient",
 }
