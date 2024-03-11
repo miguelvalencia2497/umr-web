@@ -3,6 +3,7 @@ export interface IAuthUser {
   created_at: number;
   expires_in: number;
   result: { user: IUser };
+  role: AuthNames;
 }
 
 export interface IUser {

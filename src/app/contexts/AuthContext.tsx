@@ -4,7 +4,7 @@ import useLocalStorageState from "../hooks/useLocalStorage";
 import http from "../api/http-common";
 import { resetApplicationData } from "../utils/application";
 import { useRouter } from "next/navigation";
-import { IAuthUser, IUser, UserRole } from "../[lng]/types/Users";
+import { AuthNames, IAuthUser, IUser } from "../[lng]/types/Users";
 import { getRedirectPathFromLocation } from "../utils/location";
 
 export interface IAuthState {
@@ -19,7 +19,7 @@ const AuthContext = createContext<
       email: string,
       password: string,
       callback: () => void,
-      role?: UserRole,
+      role?: AuthNames,
     ) => void;
     logout?: () => void;
   }
@@ -29,7 +29,7 @@ export function getTokenData() {
   let data = null;
   const cached = localStorage.getItem("auth_state");
   if (cached) {
-    data = JSON.parse(cached).data.token;
+    data = JSON.parse(cached).data?.token;
   }
   return data;
 }
@@ -88,13 +88,13 @@ const AuthProvider: React.FC<{ children: any }> = (props) => {
   ) => {
     //? Implement login logic
     http
-      .post<IAuthUser>(`/${role ? role : UserRole.PATIENT}/signin`, {
+      .post<IAuthUser>(`/${role ? role : AuthNames.PATIENT}/signin`, {
         username: email,
         password: password,
         domain: "test",
       })
       .then((res) => {
-        handleResponse({ ...res.data, role: role || UserRole.PATIENT });
+        handleResponse({ ...res.data, role: role || AuthNames.PATIENT });
         router.push("/dashboard");
       });
   };

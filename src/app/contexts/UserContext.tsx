@@ -12,13 +12,18 @@ const UserProvider: React.FunctionComponent<{ children: any }> = ({
   ...props
 }) => {
   const { data } = useAuth();
+  console.log("🚀 ~ data:", data);
 
   const retrieveUser = async () => {
     const response = await axios.get(`/patient/user/${data?.userId}`);
     return response.data;
   };
 
-  const { data: user, error, isLoading } = useQuery("user", retrieveUser);
+  const {
+    data: user,
+    error,
+    isLoading,
+  } = useQuery("user", retrieveUser, { enabled: !!data });
 
   return (
     <UserContext.Provider value={user} {...props}>
