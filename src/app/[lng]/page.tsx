@@ -17,7 +17,7 @@ export default function ViewInitializer({
 
   return (
     <main>
-      <>{t("hello")}</>
+      {/* <>{t("hello")}</> */}
       {/* <LanguageSwitcher lng={lng} /> */}
     </main>
   );

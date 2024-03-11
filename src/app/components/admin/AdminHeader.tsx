@@ -82,8 +82,8 @@ const AdminHeader: React.FC<Props> = ({ lng, ...props }) => {
         >
           <Text color="primary.100" fontWeight={700} fontSize={"13px"}>
             {fullName({
-              first_name: user?.first_name,
-              last_name: user?.last_name,
+              first_name: user?.firstName,
+              last_name: user?.lastName,
             })}
           </Text>
           <Text fontSize={"12px"} color={"primary.700"}>

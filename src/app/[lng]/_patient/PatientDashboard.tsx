@@ -64,8 +64,8 @@ const PatientDashboard: React.FC<DashboardProps> = ({ lng }) => {
           </Text>
           <Heading as="h1" size="xl" fontWeight="900" color="primary.700">
             {fullName({
-              first_name: user?.first_name,
-              last_name: user?.last_name,
+              first_name: user?.firstName,
+              last_name: user?.lastName,
             })}
           </Heading>
         </VStack>

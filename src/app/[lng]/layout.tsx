@@ -1,21 +1,9 @@
+"use client";
 import { dir } from "i18next";
-import { Inter } from "next/font/google";
-import { languages } from "../i18n/settings";
-import type { Metadata } from "next";
 import ChakraUiProvider from "@/app/contexts/ChakraContext";
 import { AuthProvider } from "../contexts/AuthContext";
 import { UserProvider } from "../contexts/UserContext";
-
-export async function generateStaticParams() {
-  return languages.map((lng) => ({ lng }));
-}
-
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "HMS Site",
-  description: "HMS Site",
-};
+import { QueryClient, QueryClientProvider } from "react-query";
 
 export default function RootLayout({
   children,
@@ -24,13 +12,24 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { lng: string };
 }) {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: true,
+      },
+      mutations: {},
+    },
+  });
+
   return (
     <html lang={lng} dir={dir(lng)}>
       <body style={{ background: "#FFF" }}>
         <ChakraUiProvider>
-          <AuthProvider>
-            <UserProvider>{children}</UserProvider>
-          </AuthProvider>
+          <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+              <UserProvider>{children}</UserProvider>
+            </AuthProvider>
+          </QueryClientProvider>
         </ChakraUiProvider>
       </body>
     </html>

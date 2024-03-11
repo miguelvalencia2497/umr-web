@@ -25,13 +25,11 @@ const AuthContext = createContext<
   }
 >({});
 
-export const TOKEN_KEY = "__uhr_token__";
-
 export function getTokenData() {
   let data = null;
-  const cached = localStorage.getItem(TOKEN_KEY);
+  const cached = localStorage.getItem("auth_state");
   if (cached) {
-    data = JSON.parse(cached);
+    data = JSON.parse(cached).data.token;
   }
   return data;
 }
@@ -53,18 +51,17 @@ const AuthProvider: React.FC<{ children: any }> = (props) => {
 
   useEffect(() => {
     const data = getTokenData();
-    if (data && data.access_token) {
+    if (data) {
       const redirectPath = getRedirectPathFromLocation()
         ? `?redirectPath=${getRedirectPathFromLocation()}`
         : "/dashboard";
-      // router.push(`${redirectPath}`);
+      router.push(`${redirectPath}`);
     } else {
       router.push("/login");
     }
   }, [router]);
 
   function handleResponse(data: IAuthUser) {
-    localStorage.setItem(TOKEN_KEY, JSON.stringify(data.token));
     setAuthState((state: IAuthState) => ({
       ...state,
       status: "done",
