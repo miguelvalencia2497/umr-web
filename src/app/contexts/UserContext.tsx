@@ -23,7 +23,9 @@ const UserProvider: React.FunctionComponent<{ children: any }> = ({
     data: user,
     error,
     isLoading,
-  } = useQuery("user", retrieveUser, { enabled: !!data });
+  } = useQuery("user", retrieveUser, {
+    enabled: !!data && !!Object.keys(data).length,
+  });
 
   return (
     <UserContext.Provider value={user} {...props}>

@@ -28,6 +28,8 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
     <>
       {user?.authorityNames.includes(AuthNames.ADMIN) ? (
         <AdminDashboard lng={lng} />
+      ) : user?.authorityNames.includes(AuthNames.STAFF) ? (
+        <></>
       ) : (
         <PatientDashboard lng={lng} />
       )}

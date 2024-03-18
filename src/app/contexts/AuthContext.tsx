@@ -57,7 +57,11 @@ const AuthProvider: React.FC<{ children: any }> = (props) => {
         : "/dashboard";
       router.push(`${redirectPath}`);
     } else {
-      router.push("/login");
+      if (location.pathname.includes("/login")) {
+        router.push(location.pathname);
+      } else {
+        router.push("/login");
+      }
     }
   }, [router]);
 
@@ -84,15 +88,19 @@ const AuthProvider: React.FC<{ children: any }> = (props) => {
     email: string,
     password: string,
     callback: () => any,
-    role?: UserRole,
+    role?: AuthNames,
   ) => {
     //? Implement login logic
     http
-      .post<IAuthUser>(`/${role ? role : AuthNames.PATIENT}/signin`, {
-        username: email,
-        password: password,
-        domain: "test",
-      })
+      .post<IAuthUser>(
+        `/${
+          role ? role.toLocaleLowerCase : AuthNames.PATIENT.toLocaleLowerCase()
+        }/signin`,
+        {
+          username: email,
+          password: password,
+        },
+      )
       .then((res) => {
         handleResponse({ ...res.data, role: role || AuthNames.PATIENT });
         router.push("/dashboard");

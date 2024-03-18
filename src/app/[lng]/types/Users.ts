@@ -14,7 +14,7 @@ export interface IUser {
 }
 
 export enum AuthNames {
-  ADMIN = "admin",
-  STAFF = "staff",
-  PATIENT = "patient",
+  ADMIN = "ADMIN",
+  STAFF = "STAFF",
+  PATIENT = "PATIENT",
 }
