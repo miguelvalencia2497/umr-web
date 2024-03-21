@@ -17,7 +17,7 @@ import { useTranslation } from "@/app/i18n/client";
 import { capitalize, titleize } from "@/app/utils/string";
 import FormikWrapper from "@/app/components/form/FormikWrapper";
 import TextField from "@/app/components/form/TextField";
-import { UserRole } from "../../types/Users";
+import { AuthNames } from "../../types/Users";
 
 export type ILoginForm = {
   email: string;
@@ -42,7 +42,7 @@ const LoginForm: React.FC<{ lng: string }> = ({ lng }) => {
   };
 
   const handleSubmit = (values: ILoginForm) => {
-    login?.(values.email, values.password, () => {}, UserRole.ADMIN);
+    login?.(values.email, values.password, () => {}, AuthNames.ADMIN);
   };
 
   return (

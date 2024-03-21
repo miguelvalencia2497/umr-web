@@ -94,11 +94,14 @@ const AuthProvider: React.FC<{ children: any }> = (props) => {
     http
       .post<IAuthUser>(
         `/${
-          role ? role.toLocaleLowerCase : AuthNames.PATIENT.toLocaleLowerCase()
+          role
+            ? role.toLocaleLowerCase()
+            : AuthNames.PATIENT.toLocaleLowerCase()
         }/signin`,
         {
           username: email,
           password: password,
+          domain: "DOMAIN",
         },
       )
       .then((res) => {

@@ -14,6 +14,7 @@ type UsersAndGroupsProps = {
 const UsersAndGroups: React.FC<UsersAndGroupsProps> = ({ params: { lng } }) => {
   const { t } = useTranslation(lng);
   const user = useUser();
+  console.log("🚀 ~ user:", user);
 
   //** Let's transfer this to a hook */
   const [hydrated, setHydrated] = useState(false);

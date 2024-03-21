@@ -12,7 +12,6 @@ const UserProvider: React.FunctionComponent<{ children: any }> = ({
   ...props
 }) => {
   const { data } = useAuth();
-  console.log("🚀 ~ data:", data);
 
   const retrieveUser = async () => {
     const response = await axios.get(`/patient/user/${data?.userId}`);

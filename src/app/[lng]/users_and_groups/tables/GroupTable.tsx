@@ -18,7 +18,7 @@ const GroupTable = () => {
     data: groups,
     error,
     isLoading,
-  } = useQuery("user", getGroupsByDomain);
+  } = useQuery("groups", getGroupsByDomain);
 
   const columns = [
     columnHelper.accessor((row) => row, {
