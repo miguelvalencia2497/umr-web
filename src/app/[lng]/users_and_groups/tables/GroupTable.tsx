@@ -6,11 +6,19 @@ import { defaultGroupsData } from "../utils";
 import SimpleTable from "@/app/components/common/Tables/SimpleTable";
 import { capitalize, truncate } from "@/app/utils/string";
 import useScreen from "@/app/hooks/useScreen";
+import { useQuery } from "react-query";
+import { getGroupsByDomain } from "@/app/api/groups";
 
 const GroupTable = () => {
   const [data, setData] = useState(() => [...defaultGroupsData]);
   const columnHelper = createColumnHelper<UserGroup>();
   const { isMobile } = useScreen();
+
+  const {
+    data: groups,
+    error,
+    isLoading,
+  } = useQuery("user", getGroupsByDomain);
 
   const columns = [
     columnHelper.accessor((row) => row, {

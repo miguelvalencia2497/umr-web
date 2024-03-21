@@ -1,7 +1,7 @@
 "use client";
 import { useTranslation } from "@/app/i18n/client";
 import { useUser } from "@/app/contexts/UserContext";
-import { UserRole } from "../types/Users";
+import { AuthNames } from "../types/Users";
 import PatientDashboard from "../_patient/PatientDashboard";
 import { useEffect, useState } from "react";
 import AdminDashboard from "../_admin/AdminDashboard";
@@ -26,7 +26,7 @@ const UsersAndGroups: React.FC<UsersAndGroupsProps> = ({ params: { lng } }) => {
   if (!hydrated || !user) return null;
   return (
     <>
-      {user?.user_roles.includes(UserRole.ADMIN) ? (
+      {user?.authorityNames.includes(AuthNames.ADMIN) ? (
         <AdminUsersAndGroups lng={lng} />
       ) : null}
     </>

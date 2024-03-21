@@ -3,7 +3,7 @@ import { useTranslation } from "@/app/i18n/client";
 import { useUser } from "@/app/contexts/UserContext";
 import { useEffect, useState } from "react";
 import AdmingGroupsCreate from "@/app/[lng]/_admin/AdminGroupsCreate";
-import { UserRole } from "@/app/[lng]/types/Users";
+import { AuthNames } from "@/app/[lng]/types/Users";
 
 type UsersAndGroupsProps = {
   params: { lng: string };
@@ -24,7 +24,7 @@ const UsersAndGroups: React.FC<UsersAndGroupsProps> = ({ params: { lng } }) => {
   if (!hydrated || !user) return null;
   return (
     <>
-      {user?.user_roles.includes(UserRole.ADMIN) ? (
+      {user?.authorityNames.includes(AuthNames.ADMIN) ? (
         <AdmingGroupsCreate lng={lng} />
       ) : null}
     </>
