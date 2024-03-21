@@ -23,10 +23,10 @@ const AdmingGroupsCreate: React.FC<Props> = ({ lng }) => {
 
   const handleSubmit = (values, actions) => {
     createGroup({
-      domain: "DOMAIN",
+      domain: "DOMAIN", //TODO - current domain can be retrieved from /info endpoint
       groupName: values.group_name,
       description: values.notes,
-      authorities: [AuthNames.ADMIN],
+      authorities: [AuthNames.ADMIN], //TODO - you can view list of authorities here http://localhost:8080/h2-console. username:sa            password:password            db:jdbc:h2:mem:ezyjumpehr
     })
       .then((res) => {
         console.log("🚀 ~ createGroup ~ res:", res);

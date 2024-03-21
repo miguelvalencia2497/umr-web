@@ -65,6 +65,7 @@ const AuthProvider: React.FC<{ children: any }> = (props) => {
     }
   }, [router]);
 
+  //TODO - we are returning role:STAFF now
   function handleResponse(data: IAuthUser) {
     setAuthState((state: IAuthState) => ({
       ...state,
@@ -105,7 +106,7 @@ const AuthProvider: React.FC<{ children: any }> = (props) => {
         },
       )
       .then((res) => {
-        handleResponse({ ...res.data, role: role || AuthNames.PATIENT });
+        handleResponse({ ...res.data, role: role || AuthNames.PATIENT }); // TODO - if path contains /staff use /staff endpoint
         router.push("/dashboard");
       });
   };

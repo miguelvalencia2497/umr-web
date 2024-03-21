@@ -13,6 +13,8 @@ const UserProvider: React.FunctionComponent<{ children: any }> = ({
 }) => {
   const { data } = useAuth();
 
+  //TODO - for retrieving current user, use /staff/info. Use /staff endpoint if logged in as staff
+
   const retrieveUser = async () => {
     const response = await axios.get(`/patient/user/${data?.userId}`);
     return response.data;
