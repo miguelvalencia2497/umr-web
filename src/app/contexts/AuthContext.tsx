@@ -65,7 +65,6 @@ const AuthProvider: React.FC<{ children: any }> = (props) => {
     }
   }, [router]);
 
-  //TODO - we are returning role:STAFF now
   function handleResponse(data: IAuthUser) {
     setAuthState((state: IAuthState) => ({
       ...state,

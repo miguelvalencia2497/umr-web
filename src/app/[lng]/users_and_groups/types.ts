@@ -1,10 +1,10 @@
-export type User = {
+export type GroupUser = {
   id: number;
   firstName: string;
   lastName: string;
-  email: string;
+  emailAddress: string;
   permissions: UserPermissions[];
-  groups: UserGroup[];
+  groupIds: number[];
   status: UserStatus;
 };
 
@@ -21,9 +21,9 @@ export enum GroupPermissions {
 
 export type UserGroup = {
   id: number;
-  name: string;
-  description: string;
-  permissions: GroupPermissions[];
+  groupName: string;
+  notes: string;
+  authorities: GroupPermissions[];
   userCount: number;
 };
 

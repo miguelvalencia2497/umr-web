@@ -12,7 +12,7 @@ const StaffWrapper: React.FC<Props> = ({ lng, children, ...props }) => {
     <>
       <HStack align="flex-start">
         <SideNavigation lng={lng} flex="2" />
-        <Box flex="9" px="6" py="8" w="full">
+        <Box ml="250px" px="6" py="8" w="full">
           <StaffHeader lng={lng} mb="4" />
           {children}
         </Box>

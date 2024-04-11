@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { useState } from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Box, Button, Text } from "@chakra-ui/react";
 import { UserGroup } from "../types";
 import { defaultGroupsData } from "../utils";
 import SimpleTable from "@/app/components/common/Tables/SimpleTable";
@@ -8,42 +8,48 @@ import { capitalize, truncate } from "@/app/utils/string";
 import useScreen from "@/app/hooks/useScreen";
 import { useQuery } from "react-query";
 import { getGroupsByDomain } from "@/app/api/groups";
+import { useUser } from "@/app/contexts/UserContext";
+import { useRouter } from "next/navigation";
 
 const GroupTable = () => {
-  const [data, setData] = useState(() => [...defaultGroupsData]);
+  const [data, setData] = useState(() => []);
   const columnHelper = createColumnHelper<UserGroup>();
   const { isMobile } = useScreen();
+  const user = useUser();
+  const router = useRouter();
 
-  const {
-    data: groups,
-    error,
-    isLoading,
-  } = useQuery("groups", getGroupsByDomain);
+  const { data: groups } = useQuery(["groups", user?.domainId], () =>
+    getGroupsByDomain(user?.domainId),
+  );
+
+  useEffect(() => {
+    setData(groups?.data?.data);
+  }, [groups]);
 
   const columns = [
     columnHelper.accessor((row) => row, {
       id: "group_name",
       cell: (info) => (
         <Box>
-          <Text>{info.getValue().name}</Text>
+          <Text>{info.getValue().groupName}</Text>
           <Text fontWeight="400">
-            {info.getValue().description.length > 90
-              ? truncate(info.getValue().description, 90)
-              : info.getValue().description}
+            {info.getValue().notes.length > 90
+              ? truncate(info.getValue().notes, 90)
+              : info.getValue().notes}
           </Text>
         </Box>
       ),
       header: () => <span>Group name</span>,
     }),
-    columnHelper.accessor((row) => row.permissions, {
-      id: "permissions",
+    columnHelper.accessor((row) => row.authorities, {
+      id: "authorities",
       cell: (info) => {
-        return info.getValue().map((permission, i) => (
+        return info.getValue().map((authorities, i) => (
           <>
             {info.getValue().length > 1 && i === info.getValue().length - 1
               ? "and "
               : ""}
-            {i === 0 ? capitalize(permission) : permission}
+            {i === 0 ? capitalize(authorities) : authorities}
             {i !== info.getValue().length - 1 ? ", " : ""}
           </>
         ));
@@ -55,7 +61,8 @@ const GroupTable = () => {
       cell: (info) => {
         return (
           <Text>
-            {info.getValue()} {info.getValue() === 1 ? "member" : "members"}
+            {info.getValue() || 0}{" "}
+            {info.getValue() === 1 ? "member" : "members"}
           </Text>
         );
       },
@@ -63,7 +70,16 @@ const GroupTable = () => {
     }),
     columnHelper.accessor((row) => row, {
       id: "action",
-      cell: (info) => <>{">"}</>,
+      cell: (info) => (
+        <Button
+          variant={"ghost"}
+          onClick={() => {
+            router.push(`users_and_groups/groups/${info.getValue().id}/edit`);
+          }}
+        >
+          {">"}
+        </Button>
+      ),
       header: () => "",
     }),
   ];
@@ -73,10 +89,8 @@ const GroupTable = () => {
       id: "group_name",
       cell: (info) => (
         <Box>
-          <Text>{info.getValue().name}</Text>
-          <Text fontWeight="400">
-            {truncate(info.getValue().description, 40)}
-          </Text>
+          <Text>{info.getValue().groupName}</Text>
+          <Text fontWeight="400">{truncate(info.getValue().notes, 40)}</Text>
         </Box>
       ),
       header: () => <span>Group name</span>,

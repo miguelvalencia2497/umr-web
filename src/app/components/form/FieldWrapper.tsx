@@ -16,7 +16,7 @@ interface IMeta {
 
 export interface IFieldWrapperProps {
   name: string;
-  value?: unknown;
+  value?: string | number | readonly string[] | undefined;
   disabled?: boolean;
   label?: string;
   labelProps?: TextProps;
@@ -26,7 +26,7 @@ export interface IFieldWrapperProps {
   // https://jisho.org/search/%E3%81%AF%E3%82%84%E3%81%84
   hayai?: boolean;
   wrapperProps?: Omit<FormControlProps, "as">;
-  onChange?: (value?: unknown) => void;
+  onChange?: (value?: string | number | readonly string[] | undefined) => void;
   onBlur?: (e: Event) => void;
 }
 

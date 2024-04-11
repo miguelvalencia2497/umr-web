@@ -1,9 +1,9 @@
 "use client";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import { capitalize, fullName, titleize } from "@/app/utils/string";
-import { User } from "../types";
+import { GroupUser } from "../types";
 import {
   defaultUserData,
   mapUserStatusToColor,
@@ -13,12 +13,20 @@ import SimpleTable from "@/app/components/common/Tables/SimpleTable";
 import { useTranslation } from "@/app/i18n/client";
 import Image from "next/image";
 import useScreen from "@/app/hooks/useScreen";
+import { useQuery } from "react-query";
+import { getGroupsUsers } from "@/app/api/groups";
 
 const UserTable: React.FC<{ lng: string }> = ({ lng }) => {
   const { t } = useTranslation(lng, "user");
   const [data, setData] = useState(() => [...defaultUserData]);
-  const columnHelper = createColumnHelper<User>();
+  const columnHelper = createColumnHelper<GroupUser>();
   const { isMobile } = useScreen();
+
+  const { data: response } = useQuery("users", getGroupsUsers, {});
+
+  useEffect(() => {
+    setData(response?.data?.data || []);
+  }, [response]);
 
   const columns = [
     columnHelper.accessor((row) => row, {
@@ -37,20 +45,21 @@ const UserTable: React.FC<{ lng: string }> = ({ lng }) => {
       ),
       header: () => <span>{capitalize(t("name"))}</span>,
     }),
-    columnHelper.accessor((row) => row.email, {
+    columnHelper.accessor((row) => row.emailAddress, {
       id: "email_address",
       cell: (info) => <Text>{info.getValue()}</Text>,
       header: () => <span>{capitalize(t("email_address"))}</span>,
     }),
     columnHelper.accessor((row) => row.permissions, {
-      id: "permissions",
+      id: "groupIds",
       cell: (info) => {
-        return info.getValue().map((permission, i) => (
+        return info.getValue()?.map((id, i) => (
           <>
-            {capitalize(permission)}
+            {capitalize(id)}
             {i !== info.getValue().length - 1 ? ", " : ""}
           </>
         ));
+        return;
       },
       header: () => <span>{capitalize(t("groups"))}</span>,
     }),
@@ -65,7 +74,7 @@ const UserTable: React.FC<{ lng: string }> = ({ lng }) => {
             height={20}
           />
           <Text color={mapUserStatusToColor(info.getValue())}>
-            {t(`user_statuses.${info.getValue()}`)}
+            {t(`user_statuses.${info.getValue().toLowerCase()}`)}
           </Text>
         </HStack>
       ),
@@ -107,7 +116,7 @@ const UserTable: React.FC<{ lng: string }> = ({ lng }) => {
               height={20}
             />
             <Text fontWeight="400" color="primary.500">
-              {info.getValue().email}
+              {info.getValue().emailAddress}
             </Text>
           </HStack>
           <HStack>
@@ -118,9 +127,9 @@ const UserTable: React.FC<{ lng: string }> = ({ lng }) => {
               height={20}
             />
             <Text fontWeight="400" color="primary.500">
-              {info.getValue().permissions?.map((permission, i) => (
+              {info.getValue().groupIds?.map((id, i) => (
                 <>
-                  {capitalize(permission)}
+                  {id}
                   {i !== info.getValue().permissions?.length - 1 ? ", " : ""}
                 </>
               ))}
@@ -138,7 +147,7 @@ const UserTable: React.FC<{ lng: string }> = ({ lng }) => {
   ];
 
   return (
-    <SimpleTable<User>
+    <SimpleTable<GroupUser>
       data={data}
       columns={columns}
       mobileColumns={mobileColumns}

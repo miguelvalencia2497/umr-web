@@ -9,26 +9,53 @@ import Panel from "@/app/components/common/Panel/Panel";
 import GroupDetails from "../users_and_groups/groups/create/GroupDetails";
 import GroupMembers from "../users_and_groups/groups/create/GroupMembers";
 import GroupSettings from "../users_and_groups/groups/create/GroupSettings";
+import { createGroup } from "@/app/api/groups";
+import { useUser } from "@/app/contexts/UserContext";
+import { UserGroup } from "../users_and_groups/types";
 
-type Props = { lng: string };
-const StaffGroupsCreate: React.FC<Props> = ({ lng }) => {
+type Props = { group?: UserGroup; lng: string };
+
+export interface GroupFormState {
+  groupName?: string;
+  notes: string;
+}
+
+const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
   const { t } = useTranslation(lng, "group");
   const router = useRouter();
+  const user = useUser();
+  const isEditMode = !!group;
 
-  const schema = YupObject().shape({});
+  const schema = YupObject().shape({
+    groupName: YupString().required(),
+    notes: YupString(),
+  });
 
-  const DEFAULT_VALUES = {};
+  const DEFAULT_VALUES = {
+    id: 1,
+    groupName: isEditMode ? group?.groupName : "",
+    notes: isEditMode ? group?.notes : "",
+    authorities: [],
+  };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (values, actions) => {
+    createGroup(values, user?.domainName)
+      .then((res) => {
+        console.log("🚀 ~ .then ~ res:", res);
+      })
+      .finally(() => {
+        actions.setSubmitting(false);
+      });
+  };
 
   return (
     <StaffWrapper lng={lng}>
-      <FormikWrapper
+      <FormikWrapper<GroupFormState>
         initialValues={DEFAULT_VALUES}
         validationSchema={schema}
         validateOnChange={false}
         onSubmit={handleSubmit}
-        render={() => (
+        render={(formikProps) => (
           <>
             <HStack w="full" justify={"space-between"} mt="30px">
               <Heading as="h4" size="md" fontWeight={700} color="primary.700">
@@ -43,8 +70,10 @@ const StaffGroupsCreate: React.FC<Props> = ({ lng }) => {
                 >
                   {capitalize(t("cancel"))}
                 </Button>
-                <Button onClick={() => {}}>
-                  {capitalize(t("create_group"))}
+                <Button onClick={formikProps.submitForm}>
+                  {isEditMode
+                    ? capitalize(t("save_and_exit"))
+                    : capitalize(t("create_group"))}
                 </Button>
               </HStack>
             </HStack>

@@ -16,7 +16,7 @@ const GroupDetails: React.FC<Props> = ({ lng }) => {
         <VStack align={"flex-start"} gap={0} w="full">
           <FormLabel>{capitalize(t("group_name"))}</FormLabel>
           <TextField
-            name="group_name"
+            name="groupName"
             placeholder={capitalize(t("group_name"))}
           />
         </VStack>

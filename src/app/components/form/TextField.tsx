@@ -39,6 +39,8 @@ const TextField: React.FC<TextFieldProps<unknown>> = ({
               </InputLeftElement>
             )}
             <Input
+              name={fieldProps.name}
+              value={fieldProps.value}
               as={textarea ? Textarea : undefined}
               type={type}
               placeholder={placeholder}
