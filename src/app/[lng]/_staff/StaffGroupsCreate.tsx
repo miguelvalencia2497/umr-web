@@ -9,7 +9,7 @@ import Panel from "@/app/components/common/Panel/Panel";
 import GroupDetails from "../users_and_groups/groups/create/GroupDetails";
 import GroupMembers from "../users_and_groups/groups/create/GroupMembers";
 import GroupSettings from "../users_and_groups/groups/create/GroupSettings";
-import { createGroup } from "@/app/api/groups";
+import { createGroup, editGroup } from "@/app/api/groups";
 import { useUser } from "@/app/contexts/UserContext";
 import { UserGroup } from "../users_and_groups/types";
 import { useState } from "react";
@@ -53,7 +53,8 @@ const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
   };
 
   const handleSubmit = (values, actions) => {
-    createGroup({ ...values, staffIds: selectedMembers }, user?.domainName)
+    const action = isEditMode ? editGroup : createGroup;
+    action({ ...values, staffIds: selectedMembers }, user?.domainName)
       .then((res) => {
         router.replace("/users_and_groups");
       })

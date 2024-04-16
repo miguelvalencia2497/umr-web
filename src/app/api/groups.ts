@@ -12,6 +12,16 @@ export const createGroup = (
   });
 };
 
+export const editGroup = (
+  values: GroupFormState,
+  domainName?: string,
+): Promise<AxiosResponse> => {
+  return apiInstance.patch(`/staff/group`, {
+    ...values,
+    domainName: domainName,
+  });
+};
+
 export const getGroupsByDomain = (
   domainId?: number,
 ): Promise<AxiosResponse> => {
