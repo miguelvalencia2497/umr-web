@@ -31,6 +31,8 @@ import Image from "next/image";
 import BarGraph from "@/app/components/common/BarGraph/BarGraph";
 import CreateUserModal from "../users_and_groups/modals/CreateUserModal/CreateUserModal";
 import { useRouter } from "next/navigation";
+import { useQuery } from "react-query";
+import { fetchUserReports } from "@/app/api/users";
 
 type Props = {
   lng: string;
@@ -40,6 +42,7 @@ const StaffUsersAndGroups: React.FC<Props> = ({ lng, ...props }) => {
   const { t } = useTranslation(lng);
   const [tabIndex, setTabIndex] = useState<number>(0);
   const router = useRouter();
+  const { data: userReports } = useQuery("userReports", fetchUserReports, {});
 
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
@@ -250,10 +253,21 @@ const StaffUsersAndGroups: React.FC<Props> = ({ lng, ...props }) => {
             <BarGraph
               type={t("user")}
               data={[
-                { title: t("active"), count: 79, color: "primary.600" },
-                { title: t("pending"), count: 16, color: "warning.200" },
-                { title: t("deleted"), count: 5, color: "error.400" },
-                { title: t("deactivated"), count: 1, color: "gray.300" },
+                {
+                  title: t("active"),
+                  count: userReports?.data.activeStaffUserCount,
+                  color: "primary.600",
+                },
+                {
+                  title: t("pending"),
+                  count: userReports?.data.pendingStaffUserCount,
+                  color: "warning.200",
+                },
+                {
+                  title: t("deactivated"),
+                  count: userReports?.data.deactivatedStaffUserCount,
+                  color: "gray.300",
+                },
               ]}
               wrapperProps={{ mt: "27px", mb: "24px" }}
             />
