@@ -1,7 +1,15 @@
+import FieldWrapper from "@/app/components/form/FieldWrapper";
 import TextField from "@/app/components/form/TextField";
 import { useTranslation } from "@/app/i18n/client";
 import { capitalize } from "@/app/utils/string";
-import { Box, FormLabel, Heading, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  FormLabel,
+  Heading,
+  Input,
+  Textarea,
+  VStack,
+} from "@chakra-ui/react";
 
 type Props = { lng: string };
 
@@ -15,10 +23,7 @@ const GroupDetails: React.FC<Props> = ({ lng }) => {
       <VStack gap="4" pt="5">
         <VStack align={"flex-start"} gap={0} w="full">
           <FormLabel>{capitalize(t("group_name"))}</FormLabel>
-          <TextField
-            name="groupName"
-            placeholder={capitalize(t("group_name"))}
-          />
+          <TextField name="groupName" />
         </VStack>
         <VStack align={"flex-start"} gap={0} w="full">
           <FormLabel>{capitalize(t("notes"))}</FormLabel>

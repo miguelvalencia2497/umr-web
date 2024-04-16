@@ -10,20 +10,37 @@ import {
   InputLeftElement,
   Text,
   VStack,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Image from "next/image";
+import AddMemberModal from "./AddMemberModal";
+import { Dispatch, SetStateAction, useState } from "react";
 
 type Props = {
   lng: string;
+  selectedMembers: number[];
+  handleAddMember: (id: number) => void;
+  handleRemoveMember: (id: number) => void;
+  handleClearAllMembers: () => void;
 };
 
-const GroupMembers: React.FC<Props> = ({ lng, ...props }) => {
+const GroupMembers: React.FC<Props> = ({
+  lng,
+  selectedMembers,
+  handleAddMember,
+  handleRemoveMember,
+  handleClearAllMembers,
+  ...props
+}) => {
   const { t } = useTranslation(lng, "group");
+
   const onSearch = (val: string) => {
     console.log("🚀 ~ val:", val);
   };
 
   const members = [];
+
+  const addMemberModalState = useDisclosure();
 
   return (
     <Box>
@@ -60,11 +77,20 @@ const GroupMembers: React.FC<Props> = ({ lng, ...props }) => {
           <Text fontSize={"12px"} color="primary.500">
             {t("add_members_copy")}
           </Text>
-          <Button>
-            <Text fontWeight={700}>{t("add_members")}</Text>
-          </Button>
         </VStack>
       )}
+      <VStack w="full" mt="16px">
+        <Button onClick={addMemberModalState.onOpen}>
+          <Text fontWeight={700}>{t("add_members")}</Text>
+        </Button>
+      </VStack>
+      <AddMemberModal
+        {...addMemberModalState}
+        selectedMembers={selectedMembers}
+        addMember={handleAddMember}
+        removeMember={handleRemoveMember}
+        clearAllMembers={handleClearAllMembers}
+      />
     </Box>
   );
 };

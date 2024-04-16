@@ -12,12 +12,14 @@ import GroupSettings from "../users_and_groups/groups/create/GroupSettings";
 import { createGroup } from "@/app/api/groups";
 import { useUser } from "@/app/contexts/UserContext";
 import { UserGroup } from "../users_and_groups/types";
+import { useState } from "react";
 
 type Props = { group?: UserGroup; lng: string };
 
 export interface GroupFormState {
   groupName?: string;
   notes: string;
+  staffIds: number[];
 }
 
 const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
@@ -25,6 +27,17 @@ const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
   const router = useRouter();
   const user = useUser();
   const isEditMode = !!group;
+  const [selectedMembers, setSelectedMembers] = useState<number[]>([]);
+
+  const handleAddMember = (userId: number) =>
+    setSelectedMembers([...selectedMembers, userId]);
+
+  const handleRemoveMember = (userId: number) => {
+    const updatedMembers = selectedMembers.filter((id) => id !== userId);
+    setSelectedMembers(updatedMembers);
+  };
+
+  const handleClearAllMembers = () => setSelectedMembers([]);
 
   const schema = YupObject().shape({
     groupName: YupString().required(),
@@ -35,13 +48,14 @@ const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
     id: 1,
     groupName: isEditMode ? group?.groupName : "",
     notes: isEditMode ? group?.notes : "",
-    authorities: [],
+    authorities: ["ADMIN"],
+    staffIds: [],
   };
 
   const handleSubmit = (values, actions) => {
-    createGroup(values, user?.domainName)
+    createGroup({ ...values, staffIds: selectedMembers }, user?.domainName)
       .then((res) => {
-        console.log("🚀 ~ .then ~ res:", res);
+        router.replace("/users_and_groups");
       })
       .finally(() => {
         actions.setSubmitting(false);
@@ -67,10 +81,14 @@ const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
                   onClick={() => {
                     router.back();
                   }}
+                  isDisabled={formikProps.isSubmitting}
                 >
                   {capitalize(t("cancel"))}
                 </Button>
-                <Button onClick={formikProps.submitForm}>
+                <Button
+                  onClick={formikProps.submitForm}
+                  isDisabled={formikProps.isSubmitting}
+                >
                   {isEditMode
                     ? capitalize(t("save_and_exit"))
                     : capitalize(t("create_group"))}
@@ -89,7 +107,13 @@ const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
                   <GroupDetails lng={lng} />
                 </Panel>
                 <Panel w="full">
-                  <GroupMembers lng={lng} />
+                  <GroupMembers
+                    lng={lng}
+                    selectedMembers={selectedMembers}
+                    handleAddMember={handleAddMember}
+                    handleRemoveMember={handleRemoveMember}
+                    handleClearAllMembers={handleClearAllMembers}
+                  />
                 </Panel>
               </VStack>
               <VStack flex="8" w="full">

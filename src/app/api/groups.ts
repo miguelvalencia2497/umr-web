@@ -15,7 +15,7 @@ export const createGroup = (
 export const getGroupsByDomain = (
   domainId?: number,
 ): Promise<AxiosResponse> => {
-  return apiInstance.get(`/staff/domain/${domainId}/group?page=1&pageSize=5`);
+  return apiInstance.get(`/staff/domain/${domainId}/group?page=1&pageSize=99`);
 };
 
 export const getGroupById = (id?: number): Promise<AxiosResponse> => {
@@ -23,5 +23,5 @@ export const getGroupById = (id?: number): Promise<AxiosResponse> => {
 };
 
 export const getGroupsUsers = (): Promise<AxiosResponse> => {
-  return apiInstance.get(`/staff/user?page=1&pageSize=5`);
+  return apiInstance.get(`/staff/user?page=1&pageSize=99`);
 };
