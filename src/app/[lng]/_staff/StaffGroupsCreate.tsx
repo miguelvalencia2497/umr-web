@@ -20,6 +20,7 @@ export interface GroupFormState {
   groupName?: string;
   notes: string;
   staffIds: number[];
+  authorities?: {};
 }
 
 const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
@@ -48,13 +49,20 @@ const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
     id: 1,
     groupName: isEditMode ? group?.groupName : "",
     notes: isEditMode ? group?.notes : "",
-    authorities: ["ADMIN"],
+    authorities: {},
     staffIds: [],
   };
 
   const handleSubmit = (values, actions) => {
     const action = isEditMode ? editGroup : createGroup;
-    action({ ...values, staffIds: selectedMembers }, user?.domainName)
+    const authorityIds = Object.keys(values.authorities || {}).map((key) =>
+      Number(key),
+    );
+    delete values.authorities;
+    action(
+      { ...values, staffIds: selectedMembers, authorityIds: authorityIds },
+      user?.domainName,
+    )
       .then((res) => {
         router.replace("/users_and_groups");
       })
@@ -70,61 +78,66 @@ const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
         validationSchema={schema}
         validateOnChange={false}
         onSubmit={handleSubmit}
-        render={(formikProps) => (
-          <>
-            <HStack w="full" justify={"space-between"} mt="30px">
-              <Heading as="h4" size="md" fontWeight={700} color="primary.700">
-                {capitalize(t("group_name"))}
-              </Heading>
-              <HStack>
-                <Button
-                  variant={"outline"}
-                  onClick={() => {
-                    router.back();
-                  }}
-                  isDisabled={formikProps.isSubmitting}
-                >
-                  {capitalize(t("cancel"))}
-                </Button>
-                <Button
-                  onClick={formikProps.submitForm}
-                  isDisabled={formikProps.isSubmitting}
-                >
-                  {isEditMode
-                    ? capitalize(t("save_and_exit"))
-                    : capitalize(t("create_group"))}
-                </Button>
+        render={(formikProps) => {
+          console.log("🚀 ~ formikProps:", formikProps);
+          console.log("🚀 ~ formikProps:");
+          return (
+            <>
+              <HStack w="full" justify={"space-between"} mt="30px">
+                <Heading as="h4" size="md" fontWeight={700} color="primary.700">
+                  {capitalize(t("group_name"))}
+                </Heading>
+                <HStack>
+                  <Button
+                    variant={"outline"}
+                    onClick={() => {
+                      router.back();
+                    }}
+                    isDisabled={formikProps.isSubmitting}
+                  >
+                    {capitalize(t("cancel"))}
+                  </Button>
+                  <Button
+                    onClick={formikProps.submitForm}
+                    isDisabled={formikProps.isSubmitting}
+                  >
+                    {isEditMode
+                      ? capitalize(t("save_and_exit"))
+                      : capitalize(t("create_group"))}
+                  </Button>
+                </HStack>
               </HStack>
-            </HStack>
-            <Flex
-              flexDirection={{ base: "column", md: "row" }}
-              align={"flex-start"}
-              w="full"
-              mt="5"
-              gap="4"
-            >
-              <VStack flex="5" gap="4" w="full">
-                <Panel w="full">
-                  <GroupDetails lng={lng} />
-                </Panel>
-                <Panel w="full">
-                  <GroupMembers
-                    lng={lng}
-                    selectedMembers={selectedMembers}
-                    handleAddMember={handleAddMember}
-                    handleRemoveMember={handleRemoveMember}
-                    handleClearAllMembers={handleClearAllMembers}
-                  />
-                </Panel>
-              </VStack>
-              <VStack flex="8" w="full">
-                <Panel w="full">
-                  <GroupSettings lng={lng} />
-                </Panel>
-              </VStack>
-            </Flex>
-          </>
-        )}
+              <Flex
+                flexDirection={{ base: "column", md: "row" }}
+                align={"flex-start"}
+                w="full"
+                mt="5"
+                gap="4"
+              >
+                <VStack flex="5" gap="4" w="full">
+                  <Panel w="full">
+                    <GroupDetails lng={lng} />
+                  </Panel>
+                  <Panel w="full">
+                    <GroupMembers
+                      lng={lng}
+                      group={group}
+                      selectedMembers={selectedMembers}
+                      handleAddMember={handleAddMember}
+                      handleRemoveMember={handleRemoveMember}
+                      handleClearAllMembers={handleClearAllMembers}
+                    />
+                  </Panel>
+                </VStack>
+                <VStack flex="8" w="full">
+                  <Panel w="full">
+                    <GroupSettings lng={lng} group={group} />
+                  </Panel>
+                </VStack>
+              </Flex>
+            </>
+          );
+        }}
       />
     </StaffWrapper>
   );

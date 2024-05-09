@@ -23,8 +23,8 @@ export type UserGroup = {
   id: number;
   groupName: string;
   notes: string;
-  authorities: GroupPermissions[];
-  userCount: number;
+  authorityIds: number[];
+  members: GroupUser[];
 };
 
 export enum UserStatus {
@@ -32,3 +32,10 @@ export enum UserStatus {
   PENDING_ACTIVATION = "pending_activation",
   DEACTIVATED = "deactivated",
 }
+
+export type GroupAuthority = {
+  id: number;
+  active: boolean;
+  authorityDescription: string;
+  authorityName: string;
+};

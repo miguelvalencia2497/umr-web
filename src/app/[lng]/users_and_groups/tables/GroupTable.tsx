@@ -7,7 +7,7 @@ import SimpleTable from "@/app/components/common/Tables/SimpleTable";
 import { capitalize, truncate } from "@/app/utils/string";
 import useScreen from "@/app/hooks/useScreen";
 import { useQuery } from "react-query";
-import { getGroupsByDomain } from "@/app/api/groups";
+import { getGroupAuthorities, getGroupsByDomain } from "@/app/api/groups";
 import { useUser } from "@/app/contexts/UserContext";
 import { useRouter } from "next/navigation";
 
@@ -20,6 +20,9 @@ const GroupTable = () => {
 
   const { data: groups } = useQuery(["groups", user?.domainId], () =>
     getGroupsByDomain(user?.domainId),
+  );
+  const { data: groupAuthorities } = useQuery(["authorities"], () =>
+    getGroupAuthorities(),
   );
 
   useEffect(() => {
@@ -41,22 +44,26 @@ const GroupTable = () => {
       ),
       header: () => <span>Group name</span>,
     }),
-    columnHelper.accessor((row) => row.authorities, {
+    columnHelper.accessor((row) => row.authorityIds, {
       id: "authorities",
       cell: (info) => {
-        return info.getValue().map((authorities, i) => (
+        return info.getValue()?.map((authorityId, i) => (
           <>
             {info.getValue().length > 1 && i === info.getValue().length - 1
               ? "and "
               : ""}
-            {i === 0 ? capitalize(authorities) : authorities}
+            {
+              groupAuthorities?.data?.data?.find(
+                (obj) => obj.id === authorityId,
+              ).authorityName
+            }
             {i !== info.getValue().length - 1 ? ", " : ""}
           </>
         ));
       },
       header: () => <span>Permissions</span>,
     }),
-    columnHelper.accessor((row) => row.userCount, {
+    columnHelper.accessor((row) => row.members?.length, {
       id: "users",
       cell: (info) => {
         return (

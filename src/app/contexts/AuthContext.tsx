@@ -28,8 +28,10 @@ const AuthContext = createContext<
 export function getTokenData() {
   let data = null;
   const cached = localStorage.getItem("auth_state");
+  console.log("🚀 ~ getTokenData ~ cached:", cached);
   if (cached) {
     data = JSON.parse(cached).data?.token;
+    console.log("🚀 ~ getTokenData ~ data:", data);
   }
   return data;
 }

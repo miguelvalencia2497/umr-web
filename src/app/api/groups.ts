@@ -16,7 +16,7 @@ export const editGroup = (
   values: GroupFormState,
   domainName?: string,
 ): Promise<AxiosResponse> => {
-  return apiInstance.patch(`/staff/group`, {
+  return apiInstance.put(`/staff/group`, {
     ...values,
     domainName: domainName,
   });
@@ -34,4 +34,8 @@ export const getGroupById = (id?: number): Promise<AxiosResponse> => {
 
 export const getGroupsUsers = (): Promise<AxiosResponse> => {
   return apiInstance.get(`/staff/user?page=1&pageSize=99`);
+};
+
+export const getGroupAuthorities = (): Promise<AxiosResponse> => {
+  return apiInstance.get(`/staff/user/authority`);
 };

@@ -30,9 +30,9 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
   if (!hydrated || !user) return null;
   return (
     <>
-      {auth?.data.role === AuthNames.ADMIN ? (
+      {auth?.data?.role === AuthNames.ADMIN ? (
         <AdminDashboard lng={lng} />
-      ) : auth?.data.role === AuthNames.STAFF ? (
+      ) : auth?.data?.role === AuthNames.STAFF ? (
         <StaffDashboard lng={lng} />
       ) : (
         <PatientDashboard lng={lng} />
