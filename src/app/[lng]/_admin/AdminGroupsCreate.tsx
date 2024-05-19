@@ -28,12 +28,8 @@ const AdmingGroupsCreate: React.FC<Props> = ({ lng }) => {
       description: values.notes,
       authorities: [AuthNames.ADMIN], //TODO - you can view list of authorities here http://localhost:8080/h2-console. username:sa            password:password            db:jdbc:h2:mem:ezyjumpehr
     })
-      .then((res) => {
-        console.log("🚀 ~ createGroup ~ res:", res);
-      })
-      .catch((error) => {
-        console.log("🚀 ~ handleSubmit ~ error:", error);
-      })
+      .then((res) => {})
+      .catch((error) => {})
       .finally(() => {
         actions.setSubmitting(false);
       });

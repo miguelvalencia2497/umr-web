@@ -1,131 +1,45 @@
-"use client";
+// contexts/AuthContext.tsx
 import { createContext, useContext, useEffect, useState } from "react";
-import useLocalStorageState from "../hooks/useLocalStorage";
-import http from "../api/http-common";
-import { resetApplicationData } from "../utils/application";
-import { useRouter } from "next/navigation";
 import { AuthNames, IAuthUser, IUser } from "../[lng]/types/Users";
-import { getRedirectPathFromLocation } from "../utils/location";
+import { authenticateUser } from "../api/auth";
+import { useRouter } from "next/navigation";
 
-export interface IAuthState {
-  status?: string;
-  error?: string | null;
-  data?: any;
+// Create the context
+const AuthContext = createContext<any>(null);
+
+// Custom hook to access the context
+export function useAuth() {
+  return useContext(AuthContext);
 }
 
-const AuthContext = createContext<
-  IAuthState & {
-    login?: (
-      email: string,
-      password: string,
-      callback: () => void,
-      role?: AuthNames,
-    ) => void;
-    logout?: () => void;
-  }
->({});
-
-export function getTokenData() {
-  let data = null;
-  const cached = localStorage.getItem("auth_state");
-  console.log("🚀 ~ getTokenData ~ cached:", cached);
-  if (cached) {
-    data = JSON.parse(cached).data?.token;
-    console.log("🚀 ~ getTokenData ~ data:", data);
-  }
-  return data;
-}
-
-export function refreshToken() {
-  //?? Fill this up with refresh token logic
-}
-
-const AuthProvider: React.FC<{ children: any }> = (props) => {
-  const [authState, setAuthState] = useLocalStorageState<IAuthState>(
-    "auth_state",
-    {
-      status: "loading",
-      error: null,
-      data: {},
-    },
-  );
+// AuthContext provider component
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const [auth, setAuth] = useState<{ role: string } | undefined>();
 
-  useEffect(() => {
-    const data = getTokenData();
-    if (data) {
-      const redirectPath = getRedirectPathFromLocation()
-        ? `?redirectPath=${getRedirectPathFromLocation()}`
-        : "/dashboard";
-      // router.push(`${redirectPath}`);
-    } else {
-      if (location.pathname.includes("/login")) {
-        router.push(location.pathname);
-      } else {
-        router.push("/login");
-      }
+  // Login function
+  const login = async (email: string, password: string, role: AuthNames) => {
+    try {
+      const authToken = await authenticateUser(email, password, role);
+      localStorage.setItem("authToken", authToken);
+      localStorage.setItem("authRole", role);
+      setAuth({ role: role });
+    } catch (error) {
+      // Handle login errors
     }
-  }, [router]);
-
-  function handleResponse(data: IAuthUser) {
-    setAuthState((state: IAuthState) => ({
-      ...state,
-      status: "done",
-      data,
-      error: null,
-    }));
-  }
-
-  const logout = () => {
-    resetApplicationData();
-    setAuthState((state: IAuthState) => ({
-      ...state,
-      data: null,
-      error: null,
-    }));
-    router.push("/login");
   };
 
-  const login = (
-    email: string,
-    password: string,
-    callback: () => any,
-    role?: AuthNames,
-  ) => {
-    //? Implement login logic
-    http
-      .post<IAuthUser>(
-        `/${
-          role
-            ? role.toLocaleLowerCase()
-            : AuthNames.PATIENT.toLocaleLowerCase()
-        }/signin`,
-        {
-          username: email,
-          password: password,
-          domain: "DOMAIN",
-        },
-      )
-      .then((res) => {
-        handleResponse({ ...res.data, role: role || AuthNames.PATIENT }); // TODO - if path contains /staff use /staff endpoint
-        router.push("/dashboard");
-      });
+  // Logout function
+  const logout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("authRole");
+    setAuth(undefined);
+    router.replace("/staff/login");
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        login,
-        logout,
-        getTokenData,
-        refreshToken,
-        ...authState,
-      }}
-      {...props}
-    />
+    <AuthContext.Provider value={{ auth, login, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
-};
-
-const useAuth = () => useContext(AuthContext);
-
-export { AuthProvider, useAuth };
+}

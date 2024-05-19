@@ -15,9 +15,7 @@ type DashboardProps = {
 const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
   const { t } = useTranslation(lng);
   const user = useUser();
-  const auth = useAuth();
-  console.log("🚀 ~ authState:", auth);
-  console.log("🚀 ~ user:", user);
+  const role = localStorage.getItem("authRole");
 
   //** Let's transfer this to a hook */
   const [hydrated, setHydrated] = useState(false);
@@ -30,9 +28,9 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
   if (!hydrated || !user) return null;
   return (
     <>
-      {auth?.data?.role === AuthNames.ADMIN ? (
+      {role === AuthNames.ADMIN ? (
         <AdminDashboard lng={lng} />
-      ) : auth?.data?.role === AuthNames.STAFF ? (
+      ) : role === AuthNames.STAFF ? (
         <StaffDashboard lng={lng} />
       ) : (
         <PatientDashboard lng={lng} />

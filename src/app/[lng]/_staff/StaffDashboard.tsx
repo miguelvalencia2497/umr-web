@@ -76,9 +76,7 @@ const StaffDashboard: React.FC<Props> = ({ lng, ...props }) => {
             backgroundPositionY: "bottom",
           },
         }}
-        onButtonClick={() => {
-          console.log("asd");
-        }}
+        onButtonClick={() => {}}
       />
       <Panel mt="24px">
         <VStack w="full">

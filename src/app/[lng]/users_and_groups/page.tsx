@@ -34,7 +34,9 @@ const UsersAndGroups: React.FC<UsersAndGroupsProps> = ({ params: { lng } }) => {
         <AdminUsersAndGroups lng={lng} />
       ) : auth?.data?.role === AuthNames.STAFF ? (
         <StaffUsersAndGroups lng={lng} />
-      ) : null}
+      ) : (
+        <StaffUsersAndGroups lng={lng} />
+      )}
     </>
   );
 };

@@ -4,6 +4,7 @@ import ChakraUiProvider from "@/app/contexts/ChakraContext";
 import { AuthProvider } from "../contexts/AuthContext";
 import { UserProvider } from "../contexts/UserContext";
 import { QueryClient, QueryClientProvider } from "react-query";
+import RouteGuard from "../components/common/RouteGuard/RouteGuard";
 
 export default function RootLayout({
   children,
@@ -27,7 +28,9 @@ export default function RootLayout({
         <ChakraUiProvider>
           <QueryClientProvider client={queryClient}>
             <AuthProvider>
-              <UserProvider>{children}</UserProvider>
+              <RouteGuard>
+                <UserProvider>{children}</UserProvider>
+              </RouteGuard>
             </AuthProvider>
           </QueryClientProvider>
         </ChakraUiProvider>

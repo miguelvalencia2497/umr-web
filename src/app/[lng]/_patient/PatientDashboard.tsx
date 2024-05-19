@@ -54,9 +54,7 @@ const PatientDashboard: React.FC<DashboardProps> = ({ lng }) => {
               backgroundPositionY: "bottom",
             },
           }}
-          onButtonClick={() => {
-            console.log("asd");
-          }}
+          onButtonClick={() => {}}
         />
         <VStack mt="8" alignItems="flex-start" gap="0">
           <Text fontSize="12px" color="primary.700">

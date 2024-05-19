@@ -12,9 +12,8 @@ export default function ViewInitializer({
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/dashboard");
-  });
-
+    router.push("/dashboard");
+  }, []);
   return (
     <main>
       {/* <>{t("hello")}</> */}

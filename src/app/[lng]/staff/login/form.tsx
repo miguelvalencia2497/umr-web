@@ -18,6 +18,8 @@ import { capitalize, titleize } from "@/app/utils/string";
 import FormikWrapper from "@/app/components/form/FormikWrapper";
 import TextField from "@/app/components/form/TextField";
 import { AuthNames } from "../../types/Users";
+import { FormikHelpers } from "formik";
+import { useRouter } from "next/navigation";
 
 export type ILoginForm = {
   email: string;
@@ -41,8 +43,15 @@ const LoginForm: React.FC<{ lng: string }> = ({ lng }) => {
     password: "",
   };
 
-  const handleSubmit = (values: ILoginForm) => {
-    login?.(values.email, values.password, () => {}, AuthNames.STAFF);
+  const handleSubmit = async (
+    values: ILoginForm,
+    actions: FormikHelpers<ILoginForm>,
+  ) => {
+    try {
+      await login?.(values.email, values.password, AuthNames.STAFF);
+    } catch (error) {
+      actions.setSubmitting(false);
+    }
   };
 
   return (
