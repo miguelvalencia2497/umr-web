@@ -29,5 +29,6 @@
     "view_patient_queue":"View Patient queue",
     "add_patients_to_queue": "Add patient/s to the queue",
     "access_to_initial_assessment": "Access to initial assessment form",
-    "med_records_notes": "Medical records/notes"
+    "med_records_notes": "Medical records/notes",
+    "save_and_exit": "Save and exit"
 }

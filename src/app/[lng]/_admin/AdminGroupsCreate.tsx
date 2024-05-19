@@ -9,6 +9,8 @@ import Panel from "@/app/components/common/Panel/Panel";
 import GroupDetails from "../users_and_groups/groups/create/GroupDetails";
 import GroupMembers from "../users_and_groups/groups/create/GroupMembers";
 import GroupSettings from "../users_and_groups/groups/create/GroupSettings";
+import { createGroup } from "@/app/api/groups";
+import { AuthNames } from "../types/Users";
 
 type Props = { lng: string };
 const AdmingGroupsCreate: React.FC<Props> = ({ lng }) => {
@@ -19,7 +21,23 @@ const AdmingGroupsCreate: React.FC<Props> = ({ lng }) => {
 
   const DEFAULT_VALUES = {};
 
-  const handleSubmit = () => {};
+  const handleSubmit = (values, actions) => {
+    createGroup({
+      domain: "DOMAIN", //TODO - current domain can be retrieved from /info endpoint
+      groupName: values.group_name,
+      description: values.notes,
+      authorities: [AuthNames.ADMIN], //TODO - you can view list of authorities here http://localhost:8080/h2-console. username:sa            password:password            db:jdbc:h2:mem:ezyjumpehr
+    })
+      .then((res) => {
+        console.log("🚀 ~ createGroup ~ res:", res);
+      })
+      .catch((error) => {
+        console.log("🚀 ~ handleSubmit ~ error:", error);
+      })
+      .finally(() => {
+        actions.setSubmitting(false);
+      });
+  };
 
   return (
     <AdminWrapper lng={lng}>
@@ -28,7 +46,7 @@ const AdmingGroupsCreate: React.FC<Props> = ({ lng }) => {
         validationSchema={schema}
         validateOnChange={false}
         onSubmit={handleSubmit}
-        render={() => (
+        render={(formikProps) => (
           <>
             <HStack w="full" justify={"space-between"} mt="30px">
               <Heading as="h4" size="md" fontWeight={700} color="primary.700">
@@ -43,7 +61,7 @@ const AdmingGroupsCreate: React.FC<Props> = ({ lng }) => {
                 >
                   {capitalize(t("cancel"))}
                 </Button>
-                <Button onClick={() => {}}>
+                <Button onClick={formikProps.submitForm}>
                   {capitalize(t("create_group"))}
                 </Button>
               </HStack>

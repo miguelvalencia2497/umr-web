@@ -1,10 +1,10 @@
-export type User = {
+export type GroupUser = {
   id: number;
   firstName: string;
   lastName: string;
-  email: string;
+  emailAddress: string;
   permissions: UserPermissions[];
-  groups: UserGroup[];
+  groupIds: number[];
   status: UserStatus;
 };
 
@@ -21,10 +21,10 @@ export enum GroupPermissions {
 
 export type UserGroup = {
   id: number;
-  name: string;
-  description: string;
-  permissions: GroupPermissions[];
-  userCount: number;
+  groupName: string;
+  notes: string;
+  authorityIds: number[];
+  members: GroupUser[];
 };
 
 export enum UserStatus {
@@ -32,3 +32,10 @@ export enum UserStatus {
   PENDING_ACTIVATION = "pending_activation",
   DEACTIVATED = "deactivated",
 }
+
+export type GroupAuthority = {
+  id: number;
+  active: boolean;
+  authorityDescription: string;
+  authorityName: string;
+};

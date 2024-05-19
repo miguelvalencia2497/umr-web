@@ -18,6 +18,8 @@ const Container: React.FC<Props> = ({ lng, children, ...props }) => {
       h="100vh"
       backgroundColor="white.400"
       style={{ boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.08)" }}
+      position="fixed"
+      w="250px"
       {...props}
     >
       <Flex h="100%" flexDirection="column">

@@ -1,13 +1,14 @@
 "use client";
 import { useTranslation } from "@/app/i18n/client";
 import { useUser } from "@/app/contexts/UserContext";
-import { AuthNames } from "../types/Users";
-import PatientDashboard from "../_patient/PatientDashboard";
 import { useEffect, useState } from "react";
-import AdminDashboard from "../_admin/AdminDashboard";
-import AdminUsersAndGroups from "../_admin/AdminUsersAndGroups";
+import AdmingGroupsCreate from "@/app/[lng]/_admin/AdminGroupsCreate";
+import { AuthNames } from "@/app/[lng]/types/Users";
 import { useAuth } from "@/app/contexts/AuthContext";
-import StaffUsersAndGroups from "../_staff/StaffUsersAndGroups";
+import StaffGroupsCreate from "@/app/[lng]/_staff/StaffGroupsCreate";
+import { useParams } from "next/navigation";
+import { getGroupById } from "@/app/api/groups";
+import { useQuery } from "react-query";
 
 type UsersAndGroupsProps = {
   params: { lng: string };
@@ -15,12 +16,16 @@ type UsersAndGroupsProps = {
 
 const UsersAndGroups: React.FC<UsersAndGroupsProps> = ({ params: { lng } }) => {
   const { t } = useTranslation(lng);
-  const auth = useAuth();
   const user = useUser();
-  console.log("🚀 ~ user:", user);
+  const auth = useAuth();
+  const { id } = useParams();
 
   //** Let's transfer this to a hook */
   const [hydrated, setHydrated] = useState(false);
+
+  const { data: group } = useQuery(["group", id], () => {
+    return getGroupById(Number(id));
+  });
 
   useEffect(() => {
     setHydrated(true);
@@ -31,9 +36,9 @@ const UsersAndGroups: React.FC<UsersAndGroupsProps> = ({ params: { lng } }) => {
   return (
     <>
       {auth?.data?.role === AuthNames.ADMIN ? (
-        <AdminUsersAndGroups lng={lng} />
+        <AdmingGroupsCreate lng={lng} />
       ) : auth?.data?.role === AuthNames.STAFF ? (
-        <StaffUsersAndGroups lng={lng} />
+        <StaffGroupsCreate lng={lng} group={group?.data} />
       ) : null}
     </>
   );

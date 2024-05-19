@@ -55,7 +55,7 @@ const SimpleTable: <T>(
     getCoreRowModel: getCoreRowModel(),
   });
 
-  if (!cols) {
+  if (!cols || !data) {
     return null;
   }
 
@@ -153,7 +153,7 @@ const SimpleTable: <T>(
             </Thead>
           )}
           <Tbody>
-            {table.getRowModel().rows.map((row) => (
+            {table?.getRowModel()?.rows.map((row) => (
               <Tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
                   <Td key={cell.id} px="0">

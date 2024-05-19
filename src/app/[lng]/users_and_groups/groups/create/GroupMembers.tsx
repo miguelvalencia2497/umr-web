@@ -1,8 +1,9 @@
 import { useTranslation } from "@/app/i18n/client";
-import { capitalize } from "@/app/utils/string";
+import { capitalize, fullName } from "@/app/utils/string";
 import {
   Box,
   Button,
+  Divider,
   HStack,
   Heading,
   Input,
@@ -10,20 +11,47 @@ import {
   InputLeftElement,
   Text,
   VStack,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Image from "next/image";
+import AddMemberModal from "./AddMemberModal";
+import { Dispatch, SetStateAction, useState } from "react";
+import { UserGroup } from "../../types";
 
 type Props = {
   lng: string;
+  group: UserGroup;
+  selectedMembers: number[];
+  handleAddMember: (id: number) => void;
+  handleRemoveMember: (id: number) => void;
+  handleClearAllMembers: () => void;
 };
 
-const GroupMembers: React.FC<Props> = ({ lng, ...props }) => {
+const GroupMembers: React.FC<Props> = ({
+  lng,
+  group,
+  selectedMembers,
+  handleAddMember,
+  handleRemoveMember,
+  handleClearAllMembers,
+  ...props
+}) => {
   const { t } = useTranslation(lng, "group");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  console.log("🚀 ~ searchTerm:", searchTerm);
+
   const onSearch = (val: string) => {
-    console.log("🚀 ~ val:", val);
+    setSearchTerm(val.toLowerCase());
   };
 
-  const members = [];
+  const members = group?.members?.filter(
+    (member) =>
+      member.emailAddress.toLowerCase().includes(searchTerm) ||
+      member.firstName.toLowerCase().includes(searchTerm) ||
+      member.lastName.toLowerCase().includes(searchTerm),
+  );
+
+  const addMemberModalState = useDisclosure();
 
   return (
     <Box>
@@ -45,8 +73,23 @@ const GroupMembers: React.FC<Props> = ({ lng, ...props }) => {
           />
         </InputGroup>
       </HStack>
-      {members.length ? (
-        <></>
+      {members?.length ? (
+        <VStack gap="6px" mt="16px">
+          {group?.members?.map((member, i) => (
+            <Box key={i} w="full">
+              <Text fontSize={"12px"} fontWeight={700} color="primary.500">
+                {fullName({
+                  first_name: member.firstName,
+                  last_name: member.lastName,
+                })}
+              </Text>
+              <Text fontSize={"12px"} color="primary.500">
+                {member.emailAddress}
+              </Text>
+              <Divider my="2" />
+            </Box>
+          ))}
+        </VStack>
       ) : (
         <VStack gap="16px" mt="16px">
           <Box w="32px">
@@ -60,11 +103,20 @@ const GroupMembers: React.FC<Props> = ({ lng, ...props }) => {
           <Text fontSize={"12px"} color="primary.500">
             {t("add_members_copy")}
           </Text>
-          <Button>
-            <Text fontWeight={700}>{t("add_members")}</Text>
-          </Button>
         </VStack>
       )}
+      <VStack w="full" mt="16px">
+        <Button onClick={addMemberModalState.onOpen}>
+          <Text fontWeight={700}>{t("add_members")}</Text>
+        </Button>
+      </VStack>
+      <AddMemberModal
+        {...addMemberModalState}
+        selectedMembers={selectedMembers}
+        addMember={handleAddMember}
+        removeMember={handleRemoveMember}
+        clearAllMembers={handleClearAllMembers}
+      />
     </Box>
   );
 };

@@ -4,7 +4,7 @@ import useLocalStorageState from "../hooks/useLocalStorage";
 import http from "../api/http-common";
 import { resetApplicationData } from "../utils/application";
 import { useRouter } from "next/navigation";
-import { IAuthUser, IUser, UserRole } from "../[lng]/types/Users";
+import { AuthNames, IAuthUser, IUser } from "../[lng]/types/Users";
 import { getRedirectPathFromLocation } from "../utils/location";
 
 export interface IAuthState {
@@ -19,19 +19,19 @@ const AuthContext = createContext<
       email: string,
       password: string,
       callback: () => void,
-      role?: UserRole,
+      role?: AuthNames,
     ) => void;
     logout?: () => void;
   }
 >({});
 
-export const TOKEN_KEY = "__uhr_token__";
-
 export function getTokenData() {
   let data = null;
-  const cached = localStorage.getItem(TOKEN_KEY);
+  const cached = localStorage.getItem("auth_state");
+  console.log("🚀 ~ getTokenData ~ cached:", cached);
   if (cached) {
-    data = JSON.parse(cached);
+    data = JSON.parse(cached).data?.token;
+    console.log("🚀 ~ getTokenData ~ data:", data);
   }
   return data;
 }
@@ -53,18 +53,21 @@ const AuthProvider: React.FC<{ children: any }> = (props) => {
 
   useEffect(() => {
     const data = getTokenData();
-    if (data && data.access_token) {
+    if (data) {
       const redirectPath = getRedirectPathFromLocation()
         ? `?redirectPath=${getRedirectPathFromLocation()}`
         : "/dashboard";
       // router.push(`${redirectPath}`);
     } else {
-      router.push("/login");
+      if (location.pathname.includes("/login")) {
+        router.push(location.pathname);
+      } else {
+        router.push("/login");
+      }
     }
   }, [router]);
 
   function handleResponse(data: IAuthUser) {
-    localStorage.setItem(TOKEN_KEY, JSON.stringify(data.token));
     setAuthState((state: IAuthState) => ({
       ...state,
       status: "done",
@@ -87,17 +90,24 @@ const AuthProvider: React.FC<{ children: any }> = (props) => {
     email: string,
     password: string,
     callback: () => any,
-    role?: UserRole,
+    role?: AuthNames,
   ) => {
     //? Implement login logic
     http
-      .post<IAuthUser>(`/${role ? role : UserRole.PATIENT}/signin`, {
-        username: email,
-        password: password,
-        domain: "test",
-      })
+      .post<IAuthUser>(
+        `/${
+          role
+            ? role.toLocaleLowerCase()
+            : AuthNames.PATIENT.toLocaleLowerCase()
+        }/signin`,
+        {
+          username: email,
+          password: password,
+          domain: "DOMAIN",
+        },
+      )
       .then((res) => {
-        handleResponse({ ...res.data, role: role || UserRole.PATIENT });
+        handleResponse({ ...res.data, role: role || AuthNames.PATIENT }); // TODO - if path contains /staff use /staff endpoint
         router.push("/dashboard");
       });
   };

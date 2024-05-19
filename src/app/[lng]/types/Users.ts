@@ -1,20 +1,31 @@
+import { UserStatus } from "../users_and_groups/types";
+
 export interface IAuthUser {
   token: string;
   created_at: number;
   expires_in: number;
   result: { user: IUser };
-  role?: UserRole;
+  role: AuthNames;
 }
 
 export interface IUser {
-  email: string;
-  first_name: string;
-  last_name: string;
-  user_roles: UserRole[];
+  id: number;
+  emailAddress: string;
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  mobileNumber: string;
+  prefixName?: string;
+  suffixName: string;
+  prcNumber: string;
+  status: UserStatus;
+  groupIds: number[];
+  domainId: number;
+  domainName: string;
 }
 
-export enum UserRole {
-  ADMIN = "admin",
-  STAFF = "staff",
-  PATIENT = "patient",
+export enum AuthNames {
+  ADMIN = "ADMIN",
+  STAFF = "STAFF",
+  PATIENT = "PATIENT",
 }

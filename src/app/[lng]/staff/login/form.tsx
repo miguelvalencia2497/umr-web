@@ -42,7 +42,7 @@ const LoginForm: React.FC<{ lng: string }> = ({ lng }) => {
   };
 
   const handleSubmit = (values: ILoginForm) => {
-    login?.(values.email, values.password, () => {}, AuthNames.ADMIN);
+    login?.(values.email, values.password, () => {}, AuthNames.STAFF);
   };
 
   return (
