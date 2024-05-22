@@ -63,7 +63,7 @@ const GroupTable = () => {
       },
       header: () => <span>Permissions</span>,
     }),
-    columnHelper.accessor((row) => row.members?.length, {
+    columnHelper.accessor((row) => row.membersCount, {
       id: "users",
       cell: (info) => {
         return (

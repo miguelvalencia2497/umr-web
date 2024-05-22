@@ -25,6 +25,7 @@ export type UserGroup = {
   notes: string;
   authorityIds: number[];
   members: GroupUser[];
+  membersCount: number;
 };
 
 export enum UserStatus {

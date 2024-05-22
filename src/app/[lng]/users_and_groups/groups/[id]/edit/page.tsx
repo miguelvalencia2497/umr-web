@@ -17,8 +17,8 @@ type UsersAndGroupsProps = {
 const UsersAndGroups: React.FC<UsersAndGroupsProps> = ({ params: { lng } }) => {
   const { t } = useTranslation(lng);
   const user = useUser();
-  const auth = useAuth();
   const { id } = useParams();
+  const role = localStorage.getItem("authRole");
 
   //** Let's transfer this to a hook */
   const [hydrated, setHydrated] = useState(false);
@@ -35,9 +35,9 @@ const UsersAndGroups: React.FC<UsersAndGroupsProps> = ({ params: { lng } }) => {
   if (!hydrated || !user) return null;
   return (
     <>
-      {auth?.data?.role === AuthNames.ADMIN ? (
+      {role === AuthNames.ADMIN ? (
         <AdmingGroupsCreate lng={lng} />
-      ) : auth?.data?.role === AuthNames.STAFF ? (
+      ) : role === AuthNames.STAFF ? (
         <StaffGroupsCreate lng={lng} group={group?.data} />
       ) : null}
     </>

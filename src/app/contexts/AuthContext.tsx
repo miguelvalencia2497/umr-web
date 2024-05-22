@@ -1,3 +1,4 @@
+"use client";
 // contexts/AuthContext.tsx
 import { createContext, useContext, useEffect, useState } from "react";
 import { AuthNames, IAuthUser, IUser } from "../[lng]/types/Users";

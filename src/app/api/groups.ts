@@ -1,3 +1,4 @@
+"use client";
 import { AxiosResponse } from "axios";
 import apiInstance from "./http-common";
 import { GroupFormState } from "../[lng]/_staff/StaffGroupsCreate";

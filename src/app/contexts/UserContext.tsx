@@ -15,13 +15,19 @@ const UserProvider: React.FunctionComponent<{ children: any }> = ({
   const authToken = localStorage.getItem("authToken");
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { auth } = useAuth();
+  const { auth, logout } = useAuth();
 
   const retrieveUser = async () => {
-    const response = await axios.get(`/staff/user/info`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
-    });
-    return response.data;
+    try {
+      const response = await axios.get(`/staff/user/info`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      logout?.();
+    }
   };
 
   const { data: user, isLoading } = useQuery("user", retrieveUser, {

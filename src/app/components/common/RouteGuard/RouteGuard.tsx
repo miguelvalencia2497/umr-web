@@ -12,7 +12,8 @@ export default function RouteGuard({
   const [authorized, setAuthorized] = useState(false);
   const [isPublicPath, setIsPublicPath] = useState(false);
   const { auth } = useAuth();
-  const authToken = localStorage.getItem("authToken");
+  const authToken =
+    global?.window !== undefined ? localStorage?.getItem("authToken") : "";
 
   useEffect(() => {
     authCheck(location.pathname);

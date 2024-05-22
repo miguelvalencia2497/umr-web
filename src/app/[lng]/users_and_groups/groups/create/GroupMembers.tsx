@@ -16,14 +16,18 @@ import {
 import Image from "next/image";
 import AddMemberModal from "./AddMemberModal";
 import { Dispatch, SetStateAction, useState } from "react";
-import { UserGroup } from "../../types";
+import { GroupUser, UserGroup } from "../../types";
+import { useQuery } from "react-query";
+import { getGroupsUsers } from "@/app/api/groups";
+import { IUser } from "@/app/[lng]/types/Users";
 
 type Props = {
   lng: string;
-  group: UserGroup;
-  selectedMembers: number[];
-  handleAddMember: (id: number) => void;
-  handleRemoveMember: (id: number) => void;
+  group?: UserGroup;
+  selectedMembers: IUser[];
+  selectedMemberIds: number[];
+  handleAddMember: (user: IUser) => void;
+  handleRemoveMember: (user: IUser) => void;
   handleClearAllMembers: () => void;
 };
 
@@ -31,6 +35,7 @@ const GroupMembers: React.FC<Props> = ({
   lng,
   group,
   selectedMembers,
+  selectedMemberIds,
   handleAddMember,
   handleRemoveMember,
   handleClearAllMembers,
@@ -38,7 +43,6 @@ const GroupMembers: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(lng, "group");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  console.log("🚀 ~ searchTerm:", searchTerm);
 
   const onSearch = (val: string) => {
     setSearchTerm(val.toLowerCase());
@@ -51,7 +55,34 @@ const GroupMembers: React.FC<Props> = ({
       member.lastName.toLowerCase().includes(searchTerm),
   );
 
+  const filteredSelectedMembers = selectedMembers?.filter(
+    (member) =>
+      member.emailAddress.toLowerCase().includes(searchTerm) ||
+      member.firstName.toLowerCase().includes(searchTerm) ||
+      member.lastName.toLowerCase().includes(searchTerm),
+  );
+
+  const { data: response, isLoading } = useQuery("users", getGroupsUsers, {});
+  const users = response?.data.data;
+
   const addMemberModalState = useDisclosure();
+
+  const renderMember = (member: IUser | GroupUser, i: number) => {
+    return (
+      <Box key={i} w="full">
+        <Text fontSize={"12px"} fontWeight={700} color="primary.500">
+          {fullName({
+            first_name: member.firstName,
+            last_name: member.lastName,
+          })}
+        </Text>
+        <Text fontSize={"12px"} color="primary.500">
+          {member.emailAddress}
+        </Text>
+        <Divider my="2" />
+      </Box>
+    );
+  };
 
   return (
     <Box>
@@ -73,22 +104,10 @@ const GroupMembers: React.FC<Props> = ({
           />
         </InputGroup>
       </HStack>
-      {members?.length ? (
+      {members?.length || filteredSelectedMembers?.length ? (
         <VStack gap="6px" mt="16px">
-          {group?.members?.map((member, i) => (
-            <Box key={i} w="full">
-              <Text fontSize={"12px"} fontWeight={700} color="primary.500">
-                {fullName({
-                  first_name: member.firstName,
-                  last_name: member.lastName,
-                })}
-              </Text>
-              <Text fontSize={"12px"} color="primary.500">
-                {member.emailAddress}
-              </Text>
-              <Divider my="2" />
-            </Box>
-          ))}
+          {members?.map((member, i) => renderMember(member, i))}
+          {filteredSelectedMembers?.map((member, i) => renderMember(member, i))}
         </VStack>
       ) : (
         <VStack gap="16px" mt="16px">
@@ -112,10 +131,11 @@ const GroupMembers: React.FC<Props> = ({
       </VStack>
       <AddMemberModal
         {...addMemberModalState}
-        selectedMembers={selectedMembers}
+        selectedMemberIds={selectedMemberIds}
         addMember={handleAddMember}
         removeMember={handleRemoveMember}
         clearAllMembers={handleClearAllMembers}
+        users={users}
       />
     </Box>
   );

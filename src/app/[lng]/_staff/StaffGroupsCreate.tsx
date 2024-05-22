@@ -1,3 +1,4 @@
+"use client";
 import { Button, Flex, HStack, Heading, VStack } from "@chakra-ui/react";
 import StaffWrapper from "./StaffWrapper";
 import { useTranslation } from "@/app/i18n/client";
@@ -13,6 +14,7 @@ import { createGroup, editGroup } from "@/app/api/groups";
 import { useUser } from "@/app/contexts/UserContext";
 import { UserGroup } from "../users_and_groups/types";
 import { useState } from "react";
+import { IUser } from "../types/Users";
 
 type Props = { group?: UserGroup; lng: string };
 
@@ -28,13 +30,20 @@ const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
   const router = useRouter();
   const user = useUser();
   const isEditMode = !!group;
-  const [selectedMembers, setSelectedMembers] = useState<number[]>([]);
+  const [selectedMemberIds, setSelectedMemberIds] = useState<number[]>([]);
+  const [selectedMembers, setSelectedMembers] = useState<IUser[]>([]);
 
-  const handleAddMember = (userId: number) =>
-    setSelectedMembers([...selectedMembers, userId]);
+  const handleAddMember = (user: IUser) => {
+    setSelectedMemberIds([...selectedMemberIds, user.id]);
+    setSelectedMembers([...selectedMembers, user]);
+  };
 
-  const handleRemoveMember = (userId: number) => {
-    const updatedMembers = selectedMembers.filter((id) => id !== userId);
+  const handleRemoveMember = (user: IUser) => {
+    const updatedMemberIds = selectedMemberIds.filter((id) => id !== user.id);
+    const updatedMembers = selectedMembers.filter(
+      (member) => member.id !== user.id,
+    );
+    setSelectedMemberIds(updatedMemberIds);
     setSelectedMembers(updatedMembers);
   };
 
@@ -79,8 +88,6 @@ const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
         validateOnChange={false}
         onSubmit={handleSubmit}
         render={(formikProps) => {
-          console.log("🚀 ~ formikProps:", formikProps);
-          console.log("🚀 ~ formikProps:");
           return (
             <>
               <HStack w="full" justify={"space-between"} mt="30px">
@@ -122,6 +129,7 @@ const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
                     <GroupMembers
                       lng={lng}
                       group={group}
+                      selectedMemberIds={selectedMemberIds}
                       selectedMembers={selectedMembers}
                       handleAddMember={handleAddMember}
                       handleRemoveMember={handleRemoveMember}

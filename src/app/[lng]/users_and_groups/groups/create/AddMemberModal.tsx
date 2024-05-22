@@ -16,26 +16,27 @@ import { Checkbox, Input } from "@chakra-ui/react";
 import { getGroupsUsers } from "@/app/api/groups";
 import { IUser } from "@/app/[lng]/types/Users";
 import { fullName } from "@/app/utils/string";
+import { GroupUser } from "../../types";
 
 interface AddMemberModalProps {
   isOpen: boolean;
   onClose: () => void;
-  selectedMembers: number[];
-  addMember: (userId: number) => void;
-  removeMember: (userId: number) => void;
+  selectedMemberIds: number[];
+  addMember: (user: IUser) => void;
+  removeMember: (user: IUser) => void;
+  users: IUser[];
   clearAllMembers: () => void;
 }
 
 const AddMemberModal: React.FC<AddMemberModalProps> = ({
-  selectedMembers,
+  selectedMemberIds,
   addMember,
   removeMember,
   clearAllMembers,
+  users,
   ...props
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { data: response, isLoading } = useQuery("users", getGroupsUsers, {});
-  const users = response?.data.data;
 
   const filteredUsers = users?.filter(
     (user: IUser) =>
@@ -45,11 +46,11 @@ const AddMemberModal: React.FC<AddMemberModalProps> = ({
       user.lastName?.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  const handleCheckboxChange = (userId: number, isChecked: boolean) => {
+  const handleCheckboxChange = (user: IUser, isChecked: boolean) => {
     if (isChecked) {
-      addMember(userId);
+      addMember(user);
     } else {
-      removeMember(userId);
+      removeMember(user);
     }
   };
 
@@ -67,15 +68,12 @@ const AddMemberModal: React.FC<AddMemberModalProps> = ({
             mb={4}
           />
           <VStack gap={4} align={"flex-start"}>
-            {isLoading && <div>Loading...</div>}
             {filteredUsers?.map((user: IUser) => (
               <Checkbox
                 variant="circular"
                 key={user.id}
-                onChange={(e) =>
-                  handleCheckboxChange(user.id, e.target.checked)
-                }
-                isChecked={selectedMembers.includes(user.id)}
+                onChange={(e) => handleCheckboxChange(user, e.target.checked)}
+                isChecked={selectedMemberIds.includes(user.id)}
               >
                 <Text fontSize={"12px"} color="primary.700">
                   {user.emailAddress}
@@ -94,8 +92,8 @@ const AddMemberModal: React.FC<AddMemberModalProps> = ({
           <Button
             mr={3}
             onClick={clearAllMembers}
-            variant={!selectedMembers.length ? "outline" : "solid"}
-            disabled={!selectedMembers.length}
+            variant={!selectedMemberIds.length ? "outline" : "solid"}
+            disabled={!selectedMemberIds.length}
           >
             Unselect All Members
           </Button>
