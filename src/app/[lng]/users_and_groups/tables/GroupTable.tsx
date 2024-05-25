@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, HStack, Text } from "@chakra-ui/react";
 import { UserGroup } from "../types";
 import { defaultGroupsData } from "../utils";
 import SimpleTable from "@/app/components/common/Tables/SimpleTable";
@@ -55,7 +55,7 @@ const GroupTable = () => {
             {
               groupAuthorities?.data?.data?.find(
                 (obj) => obj.id === authorityId,
-              ).authorityName
+              )?.authorityName
             }
             {i !== info.getValue().length - 1 ? ", " : ""}
           </>

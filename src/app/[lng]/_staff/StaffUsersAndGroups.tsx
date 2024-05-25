@@ -10,6 +10,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Select,
   Tab,
   TabIndicator,
   TabList,

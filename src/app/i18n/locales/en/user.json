@@ -1,7 +1,7 @@
 {
     "user_statuses": {
         "active": "Active",
-        "pending_activation": "Pending activation",
+        "pending": "Pending activation",
         "deactivated": "Deactivated"
     },
     "create_new_user": "Create new user",

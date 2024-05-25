@@ -6,6 +6,7 @@ export type GroupUser = {
   permissions: UserPermissions[];
   groupIds: number[];
   status: UserStatus;
+  prc_registration_number: string;
 };
 
 export enum UserPermissions {
@@ -35,6 +36,14 @@ export enum UserStatus {
 }
 
 export type GroupAuthority = {
+  id: number;
+  active: boolean;
+  authorityDescription: string;
+  authorityName: string;
+  childStaffAuthorities?: ChildStaffAuthority[];
+};
+
+export type ChildStaffAuthority = {
   id: number;
   active: boolean;
   authorityDescription: string;

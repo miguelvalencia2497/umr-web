@@ -1,7 +1,7 @@
 export interface ICreateUserForm {
-  first_name?: string | null;
-  last_name?: string | null;
-  prc_registration_number?: string | null;
-  email_address?: string | null;
-  mobile_number?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  prcNumber?: string | null;
+  emailAddress?: string | null;
+  mobileNumber?: string | null;
 }

@@ -40,3 +40,27 @@ export const getGroupsUsers = (): Promise<AxiosResponse> => {
 export const getGroupAuthorities = (): Promise<AxiosResponse> => {
   return apiInstance.get(`/staff/user/authority`);
 };
+
+export const getGroupAuthoritiesByCategory = (
+  category: string,
+): Promise<AxiosResponse> => {
+  return apiInstance.get(`/staff/user/authority?category=${category}`);
+};
+
+export const getGroupUsersByGroupId = (id?: number): Promise<AxiosResponse> => {
+  return apiInstance.get(
+    `/staff/domain/1/group/${id}/member?page=1&pageSize=99`,
+  );
+};
+
+export const removeMembersFromGroup = (
+  groupId?: number,
+  ids?: number[],
+): Promise<AxiosResponse> => {
+  console.log("🚀 ~ groupId:", groupId);
+  return apiInstance.patch(`/staff/group/member`, {
+    groupId: groupId,
+    userIdsToAdd: [],
+    userIdsToRemove: ids,
+  });
+};

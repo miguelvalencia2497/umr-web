@@ -17,7 +17,7 @@ const Dashboard: React.FC<DashboardProps> = ({ params: { lng } }) => {
   const user = useUser();
   const role = localStorage.getItem("authRole");
 
-  //** Let's transfer this to a hook */
+  // //** Let's transfer this to a hook */
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {

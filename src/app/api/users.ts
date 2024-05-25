@@ -8,3 +8,9 @@ export const fetchUsers = async (): Promise<AxiosResponse> => {
 export const fetchUserReports = async (): Promise<AxiosResponse> => {
   return apiInstance.get(`/staff/domain/user/report`);
 };
+
+export const createUser = async (values): Promise<AxiosResponse> => {
+  return apiInstance.post(`/staff/user/register`, {
+    ...values,
+  });
+};

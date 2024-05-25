@@ -69,7 +69,7 @@ const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
     );
     delete values.authorities;
     action(
-      { ...values, staffIds: selectedMembers, authorityIds: authorityIds },
+      { ...values, staffIds: selectedMemberIds, authorityIds: authorityIds },
       user?.domainName,
     )
       .then((res) => {
@@ -92,7 +92,7 @@ const StaffGroupsCreate: React.FC<Props> = ({ group, lng }) => {
             <>
               <HStack w="full" justify={"space-between"} mt="30px">
                 <Heading as="h4" size="md" fontWeight={700} color="primary.700">
-                  {capitalize(t("group_name"))}
+                  {isEditMode ? group?.groupName : capitalize(t("group_name"))}
                 </Heading>
                 <HStack>
                   <Button

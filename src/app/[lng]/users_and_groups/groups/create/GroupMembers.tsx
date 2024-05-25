@@ -20,6 +20,7 @@ import { GroupUser, UserGroup } from "../../types";
 import { useQuery } from "react-query";
 import { getGroupsUsers } from "@/app/api/groups";
 import { IUser } from "@/app/[lng]/types/Users";
+import { useRouter } from "next/navigation";
 
 type Props = {
   lng: string;
@@ -43,6 +44,7 @@ const GroupMembers: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(lng, "group");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const router = useRouter();
 
   const onSearch = (val: string) => {
     setSearchTerm(val.toLowerCase());
@@ -125,9 +127,20 @@ const GroupMembers: React.FC<Props> = ({
         </VStack>
       )}
       <VStack w="full" mt="16px">
-        <Button onClick={addMemberModalState.onOpen}>
+        <Button onClick={addMemberModalState.onOpen} w="full">
           <Text fontWeight={700}>{t("add_members")}</Text>
         </Button>
+        {members?.length && (
+          <Button
+            onClick={() => {
+              router.push(`/users_and_groups/groups/${group?.id}/users`);
+            }}
+            w="full"
+            variant="outline"
+          >
+            <Text fontWeight={700}>{t("view_all_members")}</Text>
+          </Button>
+        )}
       </VStack>
       <AddMemberModal
         {...addMemberModalState}
