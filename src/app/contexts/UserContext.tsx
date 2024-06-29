@@ -18,17 +18,16 @@ const UserProvider: React.FunctionComponent<{ children: any }> = ({
   const { auth, logout } = useAuth();
 
   const retrieveUser = async () => {
-    // try {
-    const response = await axios.get(`/staff/user/info`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-      },
-    });
-    return response.data;
-    // }
-    //  catch (error) {
-    // logout?.();
-    // }
+    try {
+      const response = await axios.get(`/staff/user/info`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      logout?.();
+    }
   };
 
   const { data: user, isLoading } = useQuery("user", retrieveUser, {

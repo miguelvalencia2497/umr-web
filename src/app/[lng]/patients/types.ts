@@ -1,12 +1,22 @@
-import { User } from "../users_and_groups/types";
-
 export type Patient = {
-  first_name: string;
-  last_name: string;
+  id: number;
+  firstName: string;
+  lastName: string;
   uid: string;
   img_url: string;
   status: PatientStatus;
-  triage_with?: User;
+  emailAddress: string;
+  chief_complaint: string;
+  last_visit_date: string;
+  last_visit_time: string;
+  dateOfBirth: string;
+  civilStatus: string;
+  gender: string;
+  age: string;
+  mobileNumber: string;
+  homeAddress: string;
+  hmoProvider: string;
+  hmoAccountNumber: string;
 };
 
 export enum PatientStatus {

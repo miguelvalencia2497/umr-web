@@ -120,7 +120,7 @@ const GroupSettings: React.FC<Props> = ({ lng, group, ...props }) => {
                           ml="8"
                           flexWrap={"wrap"}
                           height="160px"
-                          width="200px"
+                          width="100%"
                           justify={"flex-start"}
                           align={"flex-start"}
                         >
@@ -183,9 +183,8 @@ const GroupSettings: React.FC<Props> = ({ lng, group, ...props }) => {
                         <VStack
                           ml="8"
                           flexWrap={"wrap"}
-                          height="160px"
-                          width="200px"
                           justify={"flex-start"}
+                          width="100%"
                           align={"flex-start"}
                         >
                           {authority.childStaffAuthorities?.map(
@@ -247,10 +246,9 @@ const GroupSettings: React.FC<Props> = ({ lng, group, ...props }) => {
                         <VStack
                           ml="8"
                           flexWrap={"wrap"}
-                          height="160px"
-                          width="200px"
                           justify={"flex-start"}
                           align={"flex-start"}
+                          width="100%"
                         >
                           {authority.childStaffAuthorities?.map(
                             (childAuthority) => (
@@ -311,8 +309,7 @@ const GroupSettings: React.FC<Props> = ({ lng, group, ...props }) => {
                         <VStack
                           ml="8"
                           flexWrap={"wrap"}
-                          height="160px"
-                          width="200px"
+                          width="100%"
                           justify={"flex-start"}
                           align={"flex-start"}
                         >
@@ -375,8 +372,7 @@ const GroupSettings: React.FC<Props> = ({ lng, group, ...props }) => {
                         <VStack
                           ml="8"
                           flexWrap={"wrap"}
-                          height="160px"
-                          width="200px"
+                          width="100%"
                           justify={"flex-start"}
                           align={"flex-start"}
                         >
